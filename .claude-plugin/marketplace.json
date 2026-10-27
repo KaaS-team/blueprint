@@ -1,0 +1,24 @@
+{
+  "name": "blueprint",
+  "owner": {
+    "name": "blueprint maintainers",
+    "url": "https://kaas.team"
+  },
+  "plugins": [
+    {
+      "name": "blueprint-core",
+      "source": "./plugins/blueprint-core",
+      "description": "Core engineering skills for coding-agent teams."
+    },
+    {
+      "name": "blueprint-review",
+      "source": "./plugins/blueprint-review",
+      "description": "Review skills for coding-agent teams."
+    },
+    {
+      "name": "blueprint-ship",
+      "source": "./plugins/blueprint-ship",
+      "description": "Shipping skills for coding-agent teams."
+    }
+  ]
+}
