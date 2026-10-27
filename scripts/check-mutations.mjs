@@ -12,9 +12,14 @@ const problems = [];
 function copyRepo() {
   const dir = mkdtempSync(join(tmpdir(), 'blueprint-mutation-'));
   cpSync(root, dir, { recursive: true, filter: (src) => basename(src) !== '.git' });
-  spawnSync('git', ['init', '-q'], { cwd: dir });
+  const init = spawnSync('git', ['init', '-q'], { cwd: dir, encoding: 'utf8' });
+  if (init.status !== 0) throw new Error(`git init failed in ${dir}: ${init.stderr}`);
   return dir;
 }
+
+// Run from inside `node --test`, a child would inherit NODE_TEST_CONTEXT and skip running its tests.
+const { NODE_TEST_CONTEXT, ...env } = process.env;
+const runTest = (dir, test) => spawnSync(process.execPath, ['--test', test], { cwd: dir, env, encoding: 'utf8' });
 
 for (const { file, search, replace, test } of mutations) {
   const label = `${file} (${test})`;
@@ -27,10 +32,18 @@ for (const { file, search, replace, test } of mutations) {
       problems.push(`${label}: search occurs ${occurrences} times, expected exactly 1`);
       continue;
     }
+    // A test that fails on the unmutated copy would make every mutation look caught.
+    const baseline = runTest(dir, test);
+    if (baseline.status !== 0 || baseline.error) {
+      problems.push(`${label}: test does not pass on the unmutated copy`);
+      continue;
+    }
     writeFileSync(path, original.replace(search, replace));
-    const r = spawnSync(process.execPath, ['--test', test], { cwd: dir, encoding: 'utf8' });
+    const r = runTest(dir, test);
     if (r.status === 0) {
       problems.push(`${label}: mutation survived, its test passed`);
+    } else if (r.status !== 1 || r.error) {
+      problems.push(`${label}: test run crashed instead of failing (status ${r.status})`);
     } else {
       console.log(`caught: ${label}`);
     }
