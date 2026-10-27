@@ -1,6 +1,5 @@
 # KaaS-team/blueprint factory charter
 
-Delete every TODO line. `factory doctor` fails while any remain.
 
 ## Stack
 
