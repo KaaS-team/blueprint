@@ -56,6 +56,20 @@ test('a complete plan passes with exit 0 and an empty findings list', () => {
   assert.deepEqual(result, { ok: true, findings: [] });
 });
 
+test('rule no-tasks fires on a plan with no task headings', () => {
+  const { code, result } = checkText('# Plan\n\nJust prose, no tasks.\n');
+  assert.equal(code, 1);
+  assert.deepEqual(rules(result), ['no-tasks']);
+});
+
+test('verdict counts a string, fractional or out-of-range score as 0', () => {
+  const ok = { intent: 2, scope: 2, verification: 2, risk: 2, estimate: 2 };
+  for (const bad of ['2', 1.5, 3, -1, null, NaN]) {
+    assert.equal(verdict({ findings: [], scores: { ...ok, risk: bad }, round: 1 }), 'REVISE', String(bad));
+  }
+  assert.equal(verdict({ findings: [], scores: { ...ok, risk: 5, estimate: 5, scope: 5 }, round: 1 }), 'REVISE');
+});
+
 test('rule no-verify fires on a task with no verify line', () => {
   const { code, result } = checkText(plan(task('T1', { ...GOOD, verify: undefined })));
   assert.equal(code, 1);

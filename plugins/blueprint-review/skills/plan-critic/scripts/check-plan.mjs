@@ -57,6 +57,7 @@ export function checkPlan(text, cwd = process.cwd()) {
     }
   });
 
+  if (tasks.length === 0) findings.push({ task: null, rule: 'no-tasks', message: 'has no "## T<n>:" task headings, so nothing was checked' });
   const ids = new Set(tasks.map((t) => t.id));
   for (const task of tasks) {
     const { fields } = task;
@@ -84,7 +85,8 @@ export function checkPlan(text, cwd = process.cwd()) {
 // Turns the findings and the rubric scores into PASS, REVISE or BLOCK. Pure: it only reads its arguments.
 // PASS needs no findings, every item at 1 or more and a total of 8 or more. A failure on round 1 is REVISE, on round 2 BLOCK.
 export function verdict({ findings = [], scores = {}, round = 1 } = {}) {
-  const items = RUBRIC.map((key) => scores[key] ?? 0);
+  // A score that is not an integer from 0 to 2 is invalid and counts as 0, so it cannot lift the total.
+  const items = RUBRIC.map((key) => (Number.isInteger(scores[key]) && scores[key] >= 0 && scores[key] <= 2 ? scores[key] : 0));
   const total = items.reduce((sum, score) => sum + score, 0);
   const pass = findings.length === 0 && items.every((score) => score >= 1) && total >= 8;
   if (pass) return 'PASS';

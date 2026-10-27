@@ -70,5 +70,17 @@
     "search": "if (PLACEHOLDER.test(line))",
     "replace": "if (false)",
     "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (tasks.length === 0)",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "Number.isInteger(scores[key]) && ",
+    "replace": "",
+    "test": "tests/plan-critic.test.mjs"
   }
 ]

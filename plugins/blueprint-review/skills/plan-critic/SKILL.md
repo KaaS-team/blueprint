@@ -41,6 +41,7 @@ Each finding names its `task` (or `null` for a plan-wide line) and its `rule`:
 
 | rule | fires when |
 | --- | --- |
+| `no-tasks` | the plan has no `## T<n>:` task headings |
 | `no-verify` | a task has no `verify` line |
 | `no-size` | a task has no size of S, M or L |
 | `unknown-dependency` | a task depends on a task id that does not exist |
@@ -63,6 +64,7 @@ Score each item 0, 1 or 2. Read the whole plan before you score.
 
 Write the scores as a JSON object keyed by the five item names, for example
 `{"intent": 2, "scope": 2, "verification": 2, "risk": 1, "estimate": 2}`.
+A missing score, or one that is not an integer from 0 to 2, counts as 0.
 
 ## Verdict
 
