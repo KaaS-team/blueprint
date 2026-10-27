@@ -81,8 +81,5 @@
         "build": "haiku"
       }
     }
-  },
-  "setup": [
-    "bun install --frozen-lockfile"
-  ]
+  }
 }
