@@ -3,9 +3,9 @@
 // Usage: blueprint add <skill|group>... [--agent <name>] [--global] [--dir <path>] [--force]
 //        blueprint list [--json]
 // Exit codes: 0 success, 1 refused or failed, 2 usage error or unknown name.
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, realpathSync, renameSync, rmSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { basename, dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -107,23 +107,42 @@ function list(names, opts) {
   return 0;
 }
 
+// True when a and b are the same folder or one is inside the other.
+function overlaps(a, b) {
+  const inside = (parent, child) => {
+    const rel = relative(parent, child);
+    return rel === '' || (!rel.startsWith('..') && !isAbsolute(rel));
+  };
+  return inside(real(a), real(b)) || inside(real(b), real(a));
+}
+
+// Resolves symlinks in the part of p that exists, so /var and /private/var compare equal.
+function real(p) {
+  if (existsSync(p)) return realpathSync(p);
+  const parent = dirname(p);
+  return parent === p ? p : join(real(parent), basename(p));
+}
+
 function add(names, opts) {
   if (names.length === 0) throw new CliError(2, 'add needs at least one skill or group name');
   const selected = resolveNames(names, catalogue());
   if (selected.length === 0) throw new CliError(1, `nothing to copy: ${names.join(', ')} has no skills`);
   const target = targetDir(opts);
   // Check every target before copying any, so a refusal leaves the target untouched.
-  if (!opts.force) {
-    for (const s of selected) {
-      const dest = join(target, s.name);
-      if (existsSync(dest)) throw new CliError(1, `${dest} already exists; pass --force to replace it`);
-    }
+  for (const s of selected) {
+    const dest = join(target, s.name);
+    if (overlaps(dest, s.source)) throw new CliError(1, `${dest} is the source skill or inside it or contains it; pick another --dir`);
+    if (!opts.force && existsSync(dest)) throw new CliError(1, `${dest} already exists; pass --force to replace it`);
   }
   mkdirSync(target, { recursive: true });
   for (const s of selected) {
     const dest = join(target, s.name);
+    // Copy beside the target first, so a failed copy never costs the skill already installed.
+    const staged = `${dest}.blueprint-tmp`;
+    rmSync(staged, { recursive: true, force: true });
+    cpSync(s.source, staged, { recursive: true });
     rmSync(dest, { recursive: true, force: true });
-    cpSync(s.source, dest, { recursive: true });
+    renameSync(staged, dest);
     console.log(`copied ${s.name} (${s.group}) to ${dest}`);
   }
   return 0;

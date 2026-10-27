@@ -173,6 +173,27 @@ test('add refuses an existing target without --force and replaces it with --forc
   assert.equal(readFileSync(join(existing, 'SKILL.md'), 'utf8'), sourceText(src, 'blueprint-core', 'alpha'));
 });
 
+test('add --force never deletes the source skill when --dir points into the source repo', () => {
+  const src = source();
+  const project = tmp('blueprint-project-');
+  const skills = join(src, 'plugins', 'blueprint-core', 'skills');
+  for (const dir of [skills, join(skills, 'alpha')]) {
+    const r = cli(src, ['add', 'alpha', '--force', '--dir', dir], { cwd: project });
+    assert.equal(r.code, 1, r.out + r.err);
+    assert.match(r.err, /source skill/);
+    assert.ok(existsSync(join(skills, 'alpha', 'SKILL.md')), `source lost with --dir ${dir}`);
+  }
+});
+
+test('add --force leaves no staging folder behind', () => {
+  const src = source();
+  const project = tmp('blueprint-project-');
+  cli(src, ['add', 'alpha'], { cwd: project });
+  const r = cli(src, ['add', 'alpha', '--force'], { cwd: project });
+  assert.equal(r.code, 0, r.err);
+  assert.equal(existsSync(join(project, '.claude', 'skills', 'alpha.blueprint-tmp')), false);
+});
+
 test('add refuses the whole call when any target exists, copying none of it', () => {
   const src = source();
   const project = tmp('blueprint-project-');

@@ -37,8 +37,8 @@
   },
   {
     "file": "bin/blueprint.mjs",
-    "search": "cpSync(s.source, dest, { recursive: true });",
-    "replace": "void dest;",
+    "search": "cpSync(s.source, staged, { recursive: true });",
+    "replace": "mkdirSync(staged);",
     "test": "tests/installer.test.mjs"
   },
   {
@@ -67,8 +67,14 @@
   },
   {
     "file": "bin/blueprint.mjs",
-    "search": "if (!opts.force) {",
-    "replace": "if (false) {",
+    "search": "if (overlaps(dest, s.source))",
+    "replace": "if (false)",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "!opts.force && existsSync(dest)",
+    "replace": "false",
     "test": "tests/installer.test.mjs"
   },
   {
