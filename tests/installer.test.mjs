@@ -133,6 +133,28 @@ test('add exits 2 on an unknown name, suggests the nearest name and copies nothi
   assert.match(typo.err, /"review"/);
 });
 
+test('add exits 2 with a message on an unknown agent, including prototype keys', () => {
+  const src = source();
+  const project = tmp('blueprint-project-');
+  for (const agent of ['nope', 'constructor', 'toString', '__proto__']) {
+    const r = cli(src, ['add', 'alpha', '--agent', agent], { cwd: project });
+    assert.equal(r.code, 2, `${agent}: ${r.out}${r.err}`);
+    assert.match(r.err, /unknown agent/);
+    assert.doesNotMatch(r.err, /TypeError/);
+  }
+  assert.equal(existsSync(join(project, '.claude')), false);
+});
+
+test('add rejects a flag or empty string given as the value of --dir', () => {
+  const src = source();
+  const project = tmp('blueprint-project-');
+  for (const args of [['--dir', '--force'], ['--dir', '']]) {
+    const r = cli(src, ['add', 'alpha', ...args], { cwd: project });
+    assert.equal(r.code, 2, r.out + r.err);
+    assert.match(r.err, /needs a value/);
+  }
+});
+
 test('add refuses an existing target without --force and replaces it with --force', () => {
   const src = source();
   const project = tmp('blueprint-project-');

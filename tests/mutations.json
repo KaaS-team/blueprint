@@ -70,5 +70,17 @@
     "search": "if (!opts.force) {",
     "replace": "if (false) {",
     "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "!Object.hasOwn(AGENTS, opts.agent)",
+    "replace": "!AGENTS[opts.agent]",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "if (!value || value.startsWith('--'))",
+    "replace": "if (value === undefined)",
+    "test": "tests/installer.test.mjs"
   }
 ]

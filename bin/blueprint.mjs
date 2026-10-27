@@ -35,7 +35,7 @@ function parse(argv) {
     else if (arg === '--json') opts.json = true;
     else if (arg === '--agent' || arg === '--dir') {
       const value = argv[++i];
-      if (value === undefined) throw new CliError(2, `${arg} needs a value`);
+      if (!value || value.startsWith('--')) throw new CliError(2, `${arg} needs a value`);
       opts[arg.slice(2)] = value;
     } else if (arg.startsWith('--')) throw new CliError(2, `unknown flag ${arg}`);
     else positional.push(arg);
@@ -88,7 +88,7 @@ function resolveNames(names, skills) {
 }
 
 function targetDir(opts) {
-  if (!opts.dir && !AGENTS[opts.agent]) {
+  if (!opts.dir && !Object.hasOwn(AGENTS, opts.agent)) {
     throw new CliError(2, `unknown agent "${opts.agent}"; use one of ${Object.keys(AGENTS).join(', ')}`);
   }
   if (opts.dir) return resolve(process.cwd(), opts.dir);
