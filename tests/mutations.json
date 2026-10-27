@@ -34,5 +34,41 @@
     "search": "if (!existsSync(join(root, dirname(file), target)))",
     "replace": "if (false)",
     "test": "tests/check-links.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "cpSync(s.source, dest, { recursive: true });",
+    "replace": "void dest;",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "opts = { agent: 'claude',",
+    "replace": "opts = { agent: 'codex',",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "console.log(`${name.padEnd(width)}  ${group}`)",
+    "replace": "console.log(name)",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "skills.filter((s) => s.group === n)",
+    "replace": "skills.filter((s) => s.group === 'none')",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "throw new CliError(2, `unknown name",
+    "replace": "throw new CliError(1, `unknown name",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/blueprint.mjs",
+    "search": "if (!opts.force) {",
+    "replace": "if (false) {",
+    "test": "tests/installer.test.mjs"
   }
 ]
