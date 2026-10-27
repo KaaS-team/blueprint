@@ -13,6 +13,12 @@
   },
   {
     "file": "scripts/check-structure.mjs",
+    "search": "if (!description.includes('Use when'))",
+    "replace": "if (false)",
+    "test": "tests/check-structure.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
     "search": "if (BANNED.test(text))",
     "replace": "if (false)",
     "test": "tests/check-structure.test.mjs"
