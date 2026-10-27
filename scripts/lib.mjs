@@ -16,9 +16,10 @@ export function rootFromArgs() {
 
 // Every file git knows about in root: tracked, or untracked and not ignored. Paths are relative to root.
 export function listFiles(root) {
-  const r = spawnSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { cwd: root, encoding: 'utf8' });
+  // -z keeps non-ASCII paths unquoted, so they are checked rather than silently skipped.
+  const r = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: root, encoding: 'utf8' });
   if (r.status !== 0) throw new Error(`git ls-files failed in ${root}: ${r.stderr}`);
-  return r.stdout.split('\n').filter((f) => f && existsSync(join(root, f))).sort();
+  return r.stdout.split('\0').filter((f) => f && existsSync(join(root, f))).sort();
 }
 
 export function isScanned(rel) {
