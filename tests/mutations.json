@@ -1,0 +1,38 @@
+[
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": "if (fm.name !== folder)",
+    "replace": "if (false)",
+    "test": "tests/check-structure.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": "if (description.length > 1024)",
+    "replace": "if (false)",
+    "test": "tests/check-structure.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": "if (!description.includes('Use when'))",
+    "replace": "if (false)",
+    "test": "tests/check-structure.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": "if (BANNED.test(text))",
+    "replace": "if (false)",
+    "test": "tests/check-structure.test.mjs"
+  },
+  {
+    "file": "scripts/check-prose.mjs",
+    "search": ".includes(EM_DASH))",
+    "replace": ".includes('x'))",
+    "test": "tests/check-prose.test.mjs"
+  },
+  {
+    "file": "scripts/check-links.mjs",
+    "search": "if (!existsSync(join(root, dirname(file), target)))",
+    "replace": "if (false)",
+    "test": "tests/check-links.test.mjs"
+  }
+]

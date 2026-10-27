@@ -1,4 +1,9 @@
-.PHONY: check test
+.PHONY: check test check-mutations
 check:
-	@echo "bootstrap gate: BP1 replaces this with the real checks"
+	node scripts/check-structure.mjs
+	node scripts/check-prose.mjs
+	node scripts/check-links.mjs
+	node --test tests/*.test.mjs
 test: check
+check-mutations:
+	node scripts/check-mutations.mjs
