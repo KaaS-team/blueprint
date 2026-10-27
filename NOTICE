@@ -1,0 +1,10 @@
+blueprint
+
+This repository draws on the following upstream projects. Each is licensed under the MIT License,
+and its copyright notice and permission notice apply to the material taken from it:
+
+- addyosmani/agent-skills (https://github.com/addyosmani/agent-skills), MIT License
+- mattpocock/skills (https://github.com/mattpocock/skills), MIT License
+- obra/superpowers (https://github.com/obra/superpowers), MIT License
+
+Skills from trailofbits/skills are not included in this repository because of their licence.
