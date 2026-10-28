@@ -34,5 +34,53 @@
     "search": "if (!existsSync(join(root, dirname(file), target)))",
     "replace": "if (false)",
     "test": "tests/check-links.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (!fields.verify)",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (!SIZES.includes(fields.size))",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (!ids.has(dep))",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (state.get(dep) === 'visiting')",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (!entry.isNew && !existsSync(resolve(cwd, entry.path)))",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (PLACEHOLDER.test(line))",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "if (tasks.length === 0)",
+    "replace": "if (false)",
+    "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "plugins/blueprint-review/skills/plan-critic/scripts/check-plan.mjs",
+    "search": "Number.isInteger(scores[key]) && ",
+    "replace": "",
+    "test": "tests/plan-critic.test.mjs"
   }
 ]
