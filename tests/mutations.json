@@ -82,5 +82,41 @@
     "search": "Number.isInteger(scores[key]) && ",
     "replace": "",
     "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": ".replace(COMMAND, '')",
+    "replace": "",
+    "test": "tests/check-structure.test.mjs"
+  },
+  {
+    "file": "bin/kaas-blueprint.mjs",
+    "search": "cpSync(src, dest, { recursive: true });",
+    "replace": "void 0;",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/kaas-blueprint.mjs",
+    "search": "if (opts.json)",
+    "replace": "if (false)",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/kaas-blueprint.mjs",
+    "search": "if (groups.has(name)) return groups.get(name);",
+    "replace": "if (false) return [];",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/kaas-blueprint.mjs",
+    "search": "const EXIT_UNKNOWN = 2;",
+    "replace": "const EXIT_UNKNOWN = 1;",
+    "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "bin/kaas-blueprint.mjs",
+    "search": "if (existsSync(dest) && !opts.force)",
+    "replace": "if (false)",
+    "test": "tests/installer.test.mjs"
   }
 ]
