@@ -1,0 +1,14 @@
+{
+  "name": "kaas-blueprint",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Installs blueprint skills into the skills folder of a coding agent.",
+  "license": "Apache-2.0",
+  "bin": {
+    "kaas-blueprint": "bin/kaas-blueprint.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": ["bin/", "plugins/", "LICENSE", "NOTICE"]
+}
