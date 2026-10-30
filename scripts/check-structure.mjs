@@ -3,6 +3,8 @@ import { finish, listFiles, readText, rootFromArgs, scannedFiles } from './lib.m
 const SKILL = /^plugins\/[^/]+\/skills\/([^/]+)\/SKILL\.md$/;
 const BANNED = /\b(?:kaas|lwp|learnwithparam)\b/i;
 const DOMAIN = /\bkaas\.team\b/gi;
+// The installer's command name is allowed, like the domain.
+const COMMAND = /\bkaas-blueprint\b/gi;
 
 // Reads the key: value pairs of a SKILL.md frontmatter block. Indented lines continue the previous value.
 export function frontmatter(text) {
@@ -40,7 +42,7 @@ for (const file of listFiles(root).filter((f) => SKILL.test(f))) {
 }
 
 for (const file of scannedFiles(root)) {
-  const text = readText(root, file).replace(DOMAIN, '');
+  const text = readText(root, file).replace(DOMAIN, '').replace(COMMAND, '');
   if (BANNED.test(text)) problems.push(`${file}: mentions KaaS, LWP or learnwithparam`);
 }
 

@@ -49,6 +49,14 @@ test('passes kaas.team alone', () => {
   assertPasses(SCRIPT, fixture({ 'README.md': 'Book a call at kaas.team\n' }));
 });
 
+test('passes the kaas-blueprint command name', () => {
+  assertPasses(SCRIPT, fixture({ 'README.md': 'npx kaas-blueprint add plan-critic\n' }));
+});
+
+test('fails another kaas- word', () => {
+  assertFails(SCRIPT, fixture({ 'README.md': 'kaas-tools\n' }), /README\.md/);
+});
+
 test('does not scan the check scripts or tests, which spell the banned words out', () => {
   assertPasses(SCRIPT, fixture({ 'tests/x.mjs': 'KaaS LWP\n', 'scripts/y.mjs': 'KaaS\n' }));
 });

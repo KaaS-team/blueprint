@@ -82,5 +82,11 @@
     "search": "Number.isInteger(scores[key]) && ",
     "replace": "",
     "test": "tests/plan-critic.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": ".replace(COMMAND, '')",
+    "replace": "",
+    "test": "tests/check-structure.test.mjs"
   }
 ]
