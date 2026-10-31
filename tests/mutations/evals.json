@@ -1,0 +1,8 @@
+[
+  {
+    "file": "scripts/check-evals.mjs",
+    "search": "if (changedSkills.has(skill) && !changedCases.has(skill))",
+    "replace": "if (false)",
+    "test": "tests/check-evals.test.mjs"
+  }
+]
