@@ -28,3 +28,7 @@ test('fails when the test is already failing without the mutation', () => {
 test('fails when search does not occur exactly once', () => {
   assertFails(SCRIPT, fixture({ 'rule.txt': 'on on\n', 'tests/t.test.mjs': BITING, 'tests/mutations.json': mutation() }), /exactly 1/);
 });
+
+test('runs entries from tests/mutations/*.json', () => {
+  assertFails(SCRIPT, fixture({ 'rule.txt': 'on\n', 'tests/t.test.mjs': TOOTHLESS, 'tests/mutations/extra.json': mutation() }), /survived/);
+});

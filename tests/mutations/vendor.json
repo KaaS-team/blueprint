@@ -1,0 +1,8 @@
+[
+  {
+    "file": "scripts/check-vendor.mjs",
+    "search": "if (sha256File(root, f.to) !== f.sha256)",
+    "replace": "if (false)",
+    "test": "tests/check-vendor.test.mjs"
+  }
+]
