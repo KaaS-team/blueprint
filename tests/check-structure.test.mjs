@@ -60,3 +60,21 @@ test('fails another kaas- word', () => {
 test('does not scan the check scripts or tests, which spell the banned words out', () => {
   assertPasses(SCRIPT, fixture({ 'tests/x.mjs': 'KaaS LWP\n', 'scripts/y.mjs': 'KaaS\n' }));
 });
+
+const vendoredPin = (to) => JSON.stringify([{ repo: 'o/r', sha: 'a'.repeat(40), licence: 'MIT', files: [{ from: 'x', to, sha256: 'b'.repeat(64) }] }]);
+
+test('passes a vendored skill whose description has no "Use when"', () => {
+  assertPasses(SCRIPT, fixture({ [SKILL]: skill('review-diff', 'Reviews pull requests.'), 'upstreams.json': vendoredPin(SKILL) }));
+});
+
+test('fails the same skill when it is not listed in upstreams.json', () => {
+  assertFails(SCRIPT, fixture({ [SKILL]: skill('review-diff', 'Reviews pull requests.') }), /Use when/);
+});
+
+test('a vendored skill still needs its name to match the folder', () => {
+  assertFails(SCRIPT, fixture({ [SKILL]: skill('review', 'Reviews pull requests.'), 'upstreams.json': vendoredPin(SKILL) }), /review-diff/);
+});
+
+test('a vendored file that names the company still fails', () => {
+  assertFails(SCRIPT, fixture({ 'docs/up.md': 'kaas\n', 'upstreams.json': vendoredPin('docs/up.md') }), /docs\/up\.md/);
+});

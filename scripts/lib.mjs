@@ -1,9 +1,15 @@
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+export const BANNED = /\b(?:kaas|lwp|learnwithparam)\b/i;
+export const DOMAIN = /\bkaas\.team\b/gi;
+// The installer's command name is allowed, like the domain.
+export const COMMAND = /\bkaas-blueprint\b/gi;
+
+export const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 // Factory-owned trees, the licence and the credits file are not scanned by the identity or prose checks.
 // The check's own scripts and tests spell the banned words out, so they are not scanned either.
@@ -48,4 +54,19 @@ export function finish(name, problems) {
   } else {
     console.log(`${name}: ok`);
   }
+}
+
+export function sha256File(root, rel) {
+  return createHash('sha256').update(readFileSync(join(root, rel))).digest('hex');
+}
+
+// The parsed upstreams.json, or [] when the file is missing.
+export function upstreams(root) {
+  const path = join(root, 'upstreams.json');
+  return existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : [];
+}
+
+// Every repo path that an upstream pin vendors.
+export function vendoredFiles(root) {
+  return new Set(upstreams(root).flatMap((u) => u.files.map((f) => f.to)));
 }

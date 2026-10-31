@@ -1,9 +1,15 @@
-.PHONY: check test check-mutations
+.PHONY: check test check-mutations vendor
+CHECKS := $(filter-out scripts/check-mutations.mjs,$(sort $(wildcard scripts/check-*.mjs)))
 check:
-	node scripts/check-structure.mjs
-	node scripts/check-prose.mjs
-	node scripts/check-links.mjs
+	for c in $(CHECKS); do node $$c || exit 1; done
 	node --test tests/*.test.mjs
-test: check
+test:
+ifeq ($(strip $(FILES)),)
+	$(MAKE) check
+else
+	node --test $(FILES)
+endif
 check-mutations:
 	node scripts/check-mutations.mjs
+vendor:
+	node scripts/sync-upstream.mjs

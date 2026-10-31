@@ -1,11 +1,18 @@
 import { spawnSync } from 'node:child_process';
-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
 import { finish, readText, rootFromArgs } from './lib.mjs';
 
 const root = rootFromArgs();
-const mutations = JSON.parse(readFileSync(join(root, 'tests', 'mutations.json'), 'utf8'));
+const sources = [];
+if (existsSync(join(root, 'tests', 'mutations.json'))) sources.push(join(root, 'tests', 'mutations.json'));
+if (existsSync(join(root, 'tests', 'mutations'))) {
+  for (const f of readdirSync(join(root, 'tests', 'mutations')).filter((n) => n.endsWith('.json')).sort()) {
+    sources.push(join(root, 'tests', 'mutations', f));
+  }
+}
+const mutations = sources.flatMap((s) => JSON.parse(readFileSync(s, 'utf8')));
 const problems = [];
 
 // Copies the repo into a fresh temp dir and makes it a git repo, so the checks list files the same way.
