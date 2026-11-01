@@ -1,0 +1,14 @@
+[
+  {
+    "file": "scripts/import-kit.mjs",
+    "search": "if (BANNED.test(out.replace(DOMAIN, '').replace(COMMAND, '')))",
+    "replace": "if (false)",
+    "test": "tests/import-kit.test.mjs"
+  },
+  {
+    "file": "scripts/check-structure.mjs",
+    "search": "if (vendored.has(file)) continue;",
+    "replace": "continue;",
+    "test": "tests/check-structure.test.mjs"
+  }
+]

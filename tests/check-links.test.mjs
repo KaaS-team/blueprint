@@ -20,3 +20,13 @@ test('does not fetch http, https or mailto links, nor check same-page anchors', 
     'README.md': '[site](https://example.invalid/x) [web](http://example.invalid/y) [mail](mailto:a@example.invalid) [top](#top)\n',
   }));
 });
+
+const vendoredPin = (to) => JSON.stringify([{ repo: 'o/r', sha: 'a'.repeat(40), licence: 'MIT', files: [{ from: 'x', to, sha256: 'b'.repeat(64) }] }]);
+
+test('passes a vendored markdown file with a dead link', () => {
+  assertPasses(SCRIPT, fixture({ 'docs/up.md': '[x](./missing.md)\n', 'upstreams.json': vendoredPin('docs/up.md') }));
+});
+
+test('fails the same file when it is not listed in upstreams.json', () => {
+  assertFails(SCRIPT, fixture({ 'docs/up.md': '[x](./missing.md)\n' }), /missing\.md/);
+});
