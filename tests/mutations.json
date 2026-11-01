@@ -118,5 +118,11 @@
     "search": "if (existsSync(dest) && !opts.force)",
     "replace": "if (false)",
     "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "scripts/check-routing.mjs",
+    "search": "if (rate < MIN_RATE)",
+    "replace": "if (false)",
+    "test": "tests/check-routing.test.mjs"
   }
 ]

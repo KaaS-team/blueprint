@@ -1,0 +1,7 @@
+{
+  "plan-critic": [
+    "Check this plan of tasks with sizes and dependencies before it is built",
+    "Run the plan critic on my task list with verify lines",
+    "Does this plan pass? Return PASS, REVISE or BLOCK"
+  ]
+}
