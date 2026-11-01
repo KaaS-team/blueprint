@@ -53,3 +53,7 @@ test('README has no prices and no "Built by KaaS" line', () => {
   assert.doesNotMatch(r, /\bprices?\b|\bpricing\b/i);
   assert.doesNotMatch(r, /built by kaas/i);
 });
+
+test('make check runs the routing check', () => {
+  assert.match(read('Makefile'), /node scripts\/check-routing\.mjs/);
+});
