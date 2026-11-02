@@ -1,0 +1,19 @@
+{
+  "skill": "systematic-debugging",
+  "positive": [
+    "The test suite fails with an unexpected error and I do not know why, debug it",
+    "There is a bug where the page crashes on load, find the root cause",
+    "Something behaves unexpectedly after the last change, help me investigate the failure",
+    "A flaky test keeps failing, work out why before fixing"
+  ],
+  "negative": [
+    {
+      "prompt": "Before I claim this is fixed, run the checks and confirm the output",
+      "expect": "verification-before-completion"
+    },
+    {
+      "prompt": "Review my change for readability and security",
+      "expect": "code-review-and-quality"
+    }
+  ]
+}
