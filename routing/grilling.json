@@ -1,0 +1,19 @@
+{
+  "skill": "grilling",
+  "positive": [
+    "Grill me on my plan for the new onboarding flow",
+    "I want to stress-test my thinking about this decision, ask me hard questions",
+    "Interview me relentlessly about this idea until we agree",
+    "Poke holes in my plan, grill me"
+  ],
+  "negative": [
+    {
+      "prompt": "Record this naming decision as an ADR and update the glossary",
+      "expect": "domain-modeling"
+    },
+    {
+      "prompt": "Check my plan task list for sizes and dependencies before building",
+      "expect": "plan-critic"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "skill": "improve-codebase-architecture",
+  "positive": [
+    "Scan my codebase for architectural friction and show me a visual HTML report",
+    "Find refactors across the repo that deepen shallow modules and present them in a report",
+    "Surface architecture improvements as an HTML report, then walk through the one I pick",
+    "Analyze the whole codebase, list deepening candidates in a report and grill me on one"
+  ],
+  "negative": [
+    {
+      "prompt": "Design the interface of one module with a seam",
+      "expect": "codebase-design"
+    },
+    {
+      "prompt": "Grill me about my launch decision",
+      "expect": "grilling"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "skill": "plan-critic",
+  "positive": [
+    "Check this plan of tasks with sizes and dependencies before we build it",
+    "Is my plan valid, each task needs a verify line, return PASS or REVISE",
+    "Score this plan with the rubric and tell me if it is blocked",
+    "Run the plan checker on my task list with dependencies"
+  ],
+  "negative": [
+    {
+      "prompt": "Ask me hard questions about my plan until we agree",
+      "expect": "grilling"
+    },
+    {
+      "prompt": "Review the diff of the finished change",
+      "expect": "code-review-and-quality"
+    }
+  ]
+}

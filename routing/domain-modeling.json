@@ -1,0 +1,19 @@
+{
+  "skill": "domain-modeling",
+  "positive": [
+    "Help me write a GLOSSARY.md so everyone uses the same terminology for our codebase",
+    "We just decided to switch our message queue, can you record that as an ADR",
+    "Our team keeps using customer and account interchangeably, sharpen the domain terminology and write it down",
+    "Edit the ADR about the database choice to say we superseded it"
+  ],
+  "negative": [
+    {
+      "prompt": "Review this pull request diff before I merge it",
+      "expect": "code-review-and-quality"
+    },
+    {
+      "prompt": "The tests fail with an unexpected error, find the bug",
+      "expect": "systematic-debugging"
+    }
+  ]
+}

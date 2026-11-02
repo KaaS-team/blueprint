@@ -1,0 +1,19 @@
+{
+  "skill": "verification-before-completion",
+  "positive": [
+    "I am about to say the work is complete, make sure I confirm it passes first",
+    "Before committing, run the verification commands and show evidence it works",
+    "Do not claim the fix is passing until you have confirmed the output",
+    "About to create a PR, verify everything is really done first"
+  ],
+  "negative": [
+    {
+      "prompt": "The build crashes with a strange error, find the cause",
+      "expect": "systematic-debugging"
+    },
+    {
+      "prompt": "Review the pasted diff for correctness before merge",
+      "expect": "code-review-and-quality"
+    }
+  ]
+}

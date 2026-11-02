@@ -118,5 +118,17 @@
     "search": "if (existsSync(dest) && !opts.force)",
     "replace": "if (false)",
     "test": "tests/installer.test.mjs"
+  },
+  {
+    "file": "scripts/check-routing.mjs",
+    "search": "const MIN_RANK1 = 0.9;",
+    "replace": "const MIN_RANK1 = 0;",
+    "test": "tests/check-routing.test.mjs"
+  },
+  {
+    "file": "scripts/check-routing.mjs",
+    "search": "if (positive.length < 3",
+    "replace": "if (false",
+    "test": "tests/check-routing.test.mjs"
   }
 ]

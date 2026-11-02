@@ -1,0 +1,19 @@
+{
+  "skill": "codebase-design",
+  "positive": [
+    "Design the interface for this module so it is deep with a small surface",
+    "Where should the seam go to make this code more testable",
+    "Find deepening opportunities in this module and decide its interface",
+    "Make this code easier for AI to navigate and test through its interface"
+  ],
+  "negative": [
+    {
+      "prompt": "Scan the whole codebase for architecture problems and present an HTML report",
+      "expect": "improve-codebase-architecture"
+    },
+    {
+      "prompt": "Write down the term definitions in a glossary",
+      "expect": "domain-modeling"
+    }
+  ]
+}

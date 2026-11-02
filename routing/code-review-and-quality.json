@@ -1,0 +1,19 @@
+{
+  "skill": "code-review-and-quality",
+  "positive": [
+    "Please review this diff before it is merged",
+    "Review this pull request for correctness, readability and security",
+    "Another agent wrote this code, assess its quality before it enters main",
+    "Here is a pasted diff, give me a code review"
+  ],
+  "negative": [
+    {
+      "prompt": "Scan the codebase for refactors and give me an HTML report",
+      "expect": "improve-codebase-architecture"
+    },
+    {
+      "prompt": "Run the checks and confirm the work passes before I say it is done",
+      "expect": "verification-before-completion"
+    }
+  ]
+}
