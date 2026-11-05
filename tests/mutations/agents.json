@@ -1,0 +1,26 @@
+[
+  {
+    "file": "scripts/check-agents.mjs",
+    "search": "if (fm.name !== AGENT.exec(file)[1])",
+    "replace": "if (false)",
+    "test": "tests/check-agents.test.mjs"
+  },
+  {
+    "file": "scripts/check-agents.mjs",
+    "search": "if (!(fm.description ?? '').includes('Use when'))",
+    "replace": "if (false)",
+    "test": "tests/check-agents.test.mjs"
+  },
+  {
+    "file": "scripts/check-agents.mjs",
+    "search": "if (!/^---[\\s\\S]*?---\\s*\\S/.test(readText(root, file)))",
+    "replace": "if (false)",
+    "test": "tests/check-agents.test.mjs"
+  },
+  {
+    "file": "scripts/check-agents.mjs",
+    "search": "if (readText(root, file).trim() === '')",
+    "replace": "if (false)",
+    "test": "tests/check-agents.test.mjs"
+  }
+]
