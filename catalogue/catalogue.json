@@ -155,5 +155,20 @@
     ],
     "eval": null,
     "score": null
+  },
+  {
+    "id": "team-rollout-pack",
+    "kind": "workflow",
+    "source": "blueprint@673cd3f4a38cc3d45783d6dbc569991a99547041#plugins/blueprint-ship/rollout/README.md",
+    "licence": "Apache-2.0",
+    "sha256": "5b45c02a17c15d982d3858b4590e6627fdc00cb882fe17e6304d28fd20c31b26",
+    "tags": [
+      "ship",
+      "rollout",
+      "settings",
+      "hooks"
+    ],
+    "eval": null,
+    "score": null
   }
 ]
