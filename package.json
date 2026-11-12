@@ -9,5 +9,5 @@
   "engines": {
     "node": ">=22"
   },
-  "files": ["bin/", "plugins/", "LICENSE", "NOTICE"]
+  "files": ["bin/", "plugins/", "catalogue/", "LICENSE", "NOTICE"]
 }

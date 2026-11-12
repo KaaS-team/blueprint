@@ -1,0 +1,8 @@
+[
+  {
+    "file": "scripts/upgrade-pins.mjs",
+    "search": "for (const { file, hash } of evalEdits) writeFileSync",
+    "replace": "for (const { file, hash } of []) writeFileSync",
+    "test": "tests/upgrade-pins.test.mjs"
+  }
+]

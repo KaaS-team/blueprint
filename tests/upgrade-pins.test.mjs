@@ -175,3 +175,71 @@ test('the CLI honours --dry-run against a local upstream base', () => {
   assert.equal(r.status, 1, r.stdout + r.stderr);
   assert.match(r.stdout, /held/);
 });
+
+// The eval rule compares against a git base, so the fixture is committed and EVAL_BASE points at that commit.
+function withCatalogue(old, up) {
+  const root = blueprint(up.first, old);
+  const body = JSON.stringify([
+    { id: 'tidy', kind: 'skill', source: `acme/skills@${up.first}#skills/tidy`, licence: 'MIT', sha256: sha(old), tags: ['notes'], eval: 'plugins/g/evals/tidy--basic/prompt.md' },
+    { id: 'bake', kind: 'skill', source: 'blueprint@HEAD#plugins/g/skills/bake', licence: 'Apache-2.0', sha256: sha(read(root, 'plugins/g/skills/bake/SKILL.md')), tags: ['food'], eval: 'plugins/g/evals/bake--basic/prompt.md' },
+  ]);
+  mkdirSync(join(root, 'catalogue'), { recursive: true });
+  writeFileSync(join(root, 'catalogue/catalogue.json'), body);
+  git(root, 'add', '-A');
+  git(root, 'commit', '-q', '-m', 'base');
+  return { root, base: git(root, 'rev-parse', 'HEAD') };
+}
+async function withBase(base, fn) {
+  const saved = process.env.EVAL_BASE;
+  process.env.EVAL_BASE = base;
+  try {
+    return await fn();
+  } finally {
+    if (saved === undefined) delete process.env.EVAL_BASE;
+    else process.env.EVAL_BASE = saved;
+  }
+}
+
+test('a bumped SKILL.md gets its eval file hash updated in the same change, so check-evals passes', async () => {
+  const old = skillText(DESC);
+  const up = upstream({ LICENSE, 'skills/tidy/SKILL.md': old });
+  const { root, base } = withCatalogue(old, up);
+  const fresh = skillText(`${DESC} and sort them`);
+  const head = up.commit({ 'skills/tidy/SKILL.md': fresh });
+  const [r] = await withBase(base, () => run(root, up.base));
+  assert.equal(r.status, 'bumped', JSON.stringify(r));
+  assert.match(read(root, 'plugins/g/evals/tidy--basic/prompt.md'), new RegExp(`^skill_sha256: ${sha(fresh)}$`, 'm'));
+  assert.match(read(root, 'plugins/g/evals/tidy--basic/prompt.md'), /max_turns: 3/);
+  assert.doesNotMatch(read(root, 'plugins/g/evals/bake--basic/prompt.md'), /skill_sha256/);
+  const entry = JSON.parse(read(root, 'catalogue/catalogue.json')).find((e) => e.id === 'tidy');
+  assert.equal(entry.source, `acme/skills@${head}#skills/tidy`);
+  assert.equal(entry.sha256, sha(fresh));
+});
+
+test('a second bump replaces the eval hash instead of adding another line', async () => {
+  const old = skillText(DESC);
+  const up = upstream({ LICENSE, 'skills/tidy/SKILL.md': old });
+  const { root, base } = withCatalogue(old, up);
+  up.commit({ 'skills/tidy/SKILL.md': skillText(`${DESC} and sort them`) });
+  await withBase(base, () => run(root, up.base));
+  const third = skillText(`${DESC} and archive them`);
+  up.commit({ 'skills/tidy/SKILL.md': third });
+  const [r] = await withBase(base, () => run(root, up.base));
+  assert.equal(r.status, 'bumped', JSON.stringify(r));
+  const prompt = read(root, 'plugins/g/evals/tidy--basic/prompt.md');
+  assert.equal(prompt.match(/skill_sha256/g).length, 1);
+  assert.match(prompt, new RegExp(sha(third)));
+});
+
+test('a held bump restores the eval file and the catalogue', async () => {
+  const old = skillText(DESC);
+  const up = upstream({ LICENSE, 'skills/tidy/SKILL.md': old });
+  const { root, base } = withCatalogue(old, up);
+  const promptBefore = read(root, 'plugins/g/evals/tidy--basic/prompt.md');
+  const catBefore = read(root, 'catalogue/catalogue.json');
+  up.commit({ 'skills/tidy/SKILL.md': '---\nname: tidy-up\ndescription: Use when you wash dishes\n---\nBody\n' });
+  const [r] = await withBase(base, () => run(root, up.base));
+  assert.equal(r.status, 'held');
+  assert.equal(read(root, 'plugins/g/evals/tidy--basic/prompt.md'), promptBefore);
+  assert.equal(read(root, 'catalogue/catalogue.json'), catBefore);
+});
