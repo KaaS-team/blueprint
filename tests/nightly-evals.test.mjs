@@ -31,9 +31,10 @@ test('runs each group that has cases with the threshold', () => {
   const r = run(dir);
   assert.equal(r.status, 0, r.stderr);
   const lines = readFileSync(log, 'utf8').trim().split('\n');
-  assert.equal(lines.length, 2);
+  assert.equal(lines.length, 3);
   assert.ok(lines.some((l) => l.includes('plugins/blueprint-core')));
   assert.ok(lines.some((l) => l.includes('plugins/blueprint-review')));
+  assert.ok(lines.some((l) => l.includes('plugins/blueprint-design')));
   assert.ok(!lines.some((l) => l.includes('blueprint-ship')));
   for (const l of lines) {
     assert.match(l, /--threshold 0\.67/);

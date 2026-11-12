@@ -4,10 +4,10 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from './helpers.mjs';
 
-const GROUPS = ['blueprint-core', 'blueprint-review', 'blueprint-ship'];
+const GROUPS = ['blueprint-core', 'blueprint-review', 'blueprint-ship', 'blueprint-design'];
 const read = (rel) => readFileSync(join(ROOT, rel), 'utf8');
 
-test('marketplace lists the three plugin groups, each sourced from its folder', () => {
+test('marketplace lists the four plugin groups, each sourced from its folder', () => {
   const m = JSON.parse(read('.claude-plugin/marketplace.json'));
   assert.deepEqual(m.plugins.map((p) => p.name), GROUPS);
   for (const p of m.plugins) assert.equal(p.source, `./plugins/${p.name}`);

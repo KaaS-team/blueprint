@@ -1,0 +1,18 @@
+{
+  "skill": "read-design",
+  "positive": [
+    "Turn this Penpot design into a component list before we write any UI code",
+    "Read the screenshot of the mockup and list its components and states",
+    "Here is an exported design image, list the components and layout it shows"
+  ],
+  "negative": [
+    {
+      "prompt": "Match these components to the design tokens and existing components in the repo",
+      "expect": "design-system-map"
+    },
+    {
+      "prompt": "Screenshot the built page and compare it with the design",
+      "expect": "visual-check"
+    }
+  ]
+}

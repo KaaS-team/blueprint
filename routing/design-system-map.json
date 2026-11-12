@@ -1,0 +1,18 @@
+{
+  "skill": "design-system-map",
+  "positive": [
+    "Match each component to existing components and design tokens in the repo, never invent a token",
+    "Decide which design system components to reuse, extend or compose for this component list",
+    "Map the design components onto our existing tokens and report the gaps"
+  ],
+  "negative": [
+    {
+      "prompt": "Read this Penpot export and list the components it shows",
+      "expect": "read-design"
+    },
+    {
+      "prompt": "Take a screenshot of the finished page and check it looks like the design",
+      "expect": "visual-check"
+    }
+  ]
+}
