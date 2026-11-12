@@ -1,0 +1,43 @@
+{
+  "awaySummaryEnabled": false,
+  "env": {
+    "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "0",
+    "CLAUDE_CODE_GLOB_NO_IGNORE": "false"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(make check)",
+      "Bash(make test:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Read(./secrets/**)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/node_modules/**)",
+      "Read(./**/dist/**)",
+      "Read(./**/.next/**)",
+      "Read(./**/build/**)",
+      "Read(./**/coverage/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|NotebookEdit|Grep|Glob|Bash",
+        "hooks": [{ "type": "command", "command": "node /etc/claude-code/blueprint-ship/hooks/guard-secrets.mjs" }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "node /etc/claude-code/blueprint-ship/hooks/stop-gate.mjs", "timeout": 600 }]
+      }
+    ]
+  }
+}
