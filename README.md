@@ -1,6 +1,6 @@
 # blueprint
 
-blueprint is a catalogue of engineering skills, agents and rules for coding agents, packaged as three Claude Code plugins and a small installer.
+blueprint is a catalogue of engineering skills, agents and rules for coding agents, packaged as four Claude Code plugins and a small installer.
 Engineers use it to copy a skill into the skills folder of their coding agent, and the factory reads its catalogue to pick packs for a task.
 
 ## Install
@@ -28,6 +28,9 @@ domain-modeling	core
 grilling	core
 systematic-debugging	core
 verification-before-completion	core
+design-system-map	design
+read-design	design
+visual-check	design
 code-review-and-quality	review
 codebase-design	review
 first-run	review
@@ -49,28 +52,19 @@ It prints `added plan-critic to <folder>/.claude/skills/plan-critic`.
 - Skills go into the current folder by default. `--global` uses your home folder instead, and `--dir <path>` uses exactly that folder. The two cannot be combined.
 - `--force` replaces a skill folder that already exists. Without it an existing folder is refused and nothing is written.
 - `list --json` prints the list as JSON.
-- A group name installs every skill in that group. Groups are the plugin folder names without the `blueprint-` prefix: `core`, `review` and `ship`. `ship` has no skills yet.
+- A group name installs every skill in that group. Groups are the plugin folder names without the `blueprint-` prefix: `core`, `design`, `review` and `ship`. `ship` has no skills yet.
 - An unknown name exits with code 2 and suggests the nearest skill or group.
 
 `node bin/kaas-blueprint.mjs --help` prints usage. `npm pack` makes a tarball, and `npx ./kaas-blueprint-*.tgz --help` runs the installer from it.
 
 ## Layout
 
-- `plugins/blueprint-core`, `plugins/blueprint-review` and `plugins/blueprint-ship` each hold `skills/`, `agents/`, `rules/` and `evals/` folders.
+- `plugins/blueprint-core`, `plugins/blueprint-design`, `plugins/blueprint-review` and `plugins/blueprint-ship` each hold `skills/`, `agents/`, `rules/` and `evals/` folders.
 - `catalogue/catalogue.json` lists every pack. `routing/` holds the routing data the checks read.
 - `plugins/blueprint-ship/rollout/` holds a team rollout pack: a managed-settings template, a secrets guard hook and a stop hook that runs the repo gate. Its `README.md` says how to install it. Its three rules files are in `plugins/blueprint-ship/rules/`.
 - `upstreams.json` pins the upstream commits that some vendored skills come from. `NOTICE` credits them.
 - `scripts/` holds the checks and tools. `tests/` holds their tests.
 - `.factory/`, `.claude/` and `.github/` configure the factory and CI for this repo itself.
-
-## The catalogue
-
-`catalogue/catalogue.json` lists each pack with `id`, `kind` (skill, agent, workflow or check), `source`, `licence`, `sha256`, `tags` and `eval`.
-
-- `source` is `repo@sha#path`. For an upstream pack the sha is the pin in `upstreams.json`. For a pack that lives in this repo it is `blueprint@HEAD#path`.
-- `sha256` is the hash of the pack's `SKILL.md`, or of the agent file. `eval` is the eval prompt that scores the pack, or null.
-- The factory reads the file, picks packs by tag, and fetches each one by its `source`, checking the bytes against `sha256`.
-- `node scripts/build-plugin.mjs` restores the vendored plugin copies from the pinned commits. Copies that already match their pin are left alone.
 
 The factory side is the old Bun and TypeScript factory that reads this catalogue. This repo has not been checked against the Go rewrite of the factory.
 
