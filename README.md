@@ -29,6 +29,12 @@ node bin/kaas-blueprint.mjs add plan-critic
 3. Write a `description` of at most 1024 characters that contains "Use when".
 4. Run `make check` and fix anything it reports.
 
+`node bin/kaas-blueprint.mjs --help` prints usage. The package is publishable: `npm pack` makes a tarball and `npx ./kaas-blueprint-*.tgz --help` runs the installer from it.
+
+## Upgrade pins
+
+`node scripts/upgrade-pins.mjs` looks up the HEAD of each upstream in `upstreams.json` with `git ls-remote` and fetches the pinned files at that commit. When any file differs, it writes the new commit and sha256 values, updates the NOTICE line, and runs `check-vendor`, `check-evals` and `check-routing`. If one of them fails, it restores the old pin and bytes and prints why the pin was held. `--dry-run` prints the plan and writes nothing. It exits 1 when any pin was held. Set `UPGRADE_PINS_BASE` to a folder of bare repos to use a local upstream.
+
 ## Checks
 
 `make check` runs the structure, prose and link checks, then the node tests. It needs only Node and make.

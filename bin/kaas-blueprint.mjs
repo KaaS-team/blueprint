@@ -84,6 +84,10 @@ function catalog(root) {
 }
 
 const [command, ...rest] = process.argv.slice(2);
+if (command === '--help' || command === '-h' || command === 'help') {
+  process.stdout.write(USAGE);
+  process.exit(0);
+}
 if (command !== 'list' && command !== 'add') usageError(command ? `unknown command ${command}` : 'no command given');
 const opts = parse(rest);
 if (!(opts.agent in AGENTS)) usageError(`unknown agent "${opts.agent}"`);

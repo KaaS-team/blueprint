@@ -5,6 +5,9 @@ description: Use when a plan, meaning a list of tasks with sizes, dependencies a
 
 # plan-critic
 
+This is the one plan rubric. The factory's `factory-plan-rubric` points here, and
+this repo carries no second plan rubric skill.
+
 Checks a plan in two steps. The script finds structural faults. The rubric
 judges the plan's content. Run them in this order: the rubric is only worth
 scoring once the script passes.

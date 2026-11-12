@@ -1,0 +1,4 @@
+auditor audit: 3 findings
+1. high   src/retry.mjs  retry() loops forever on a permanent failure (sure)
+2. medium src/upload.mjs upload() has no timeout (likely)
+3. low    package.json   no lint script (sure)

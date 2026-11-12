@@ -1,0 +1,19 @@
+{
+  "skill": "first-run",
+  "positive": [
+    "I just installed blueprint, give me a first result in the first hour",
+    "Audit this repo, show the top risks and fix the safest one with a draft PR",
+    "Run the first-run walk: auditor audit, one fix, one draft PR, then reaudit",
+    "New to this repo, find the biggest risks and open one small draft PR"
+  ],
+  "negative": [
+    {
+      "prompt": "Check this plan of tasks with sizes and dependencies before we build it",
+      "expect": "plan-critic"
+    },
+    {
+      "prompt": "Review the diff of the finished change",
+      "expect": "code-review-and-quality"
+    }
+  ]
+}
