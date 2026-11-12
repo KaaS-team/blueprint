@@ -1,0 +1,147 @@
+[
+  {
+    "id": "code-review-and-quality",
+    "kind": "skill",
+    "source": "addyosmani/agent-skills@1401c8b8030e023baeebb31781a6653fe8e93026#skills/code-review-and-quality",
+    "licence": "MIT",
+    "sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e",
+    "tags": [
+      "review",
+      "quality"
+    ],
+    "eval": "plugins/blueprint-review/evals/code-review-and-quality--diff/prompt.md"
+  },
+  {
+    "id": "domain-modeling",
+    "kind": "skill",
+    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/engineering/domain-modeling",
+    "licence": "MIT",
+    "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+    "tags": [
+      "design",
+      "language",
+      "docs"
+    ],
+    "eval": "plugins/blueprint-core/evals/domain-modeling--glossary/prompt.md"
+  },
+  {
+    "id": "grilling",
+    "kind": "skill",
+    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/productivity/grilling",
+    "licence": "MIT",
+    "sha256": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15",
+    "tags": [
+      "planning",
+      "review"
+    ],
+    "eval": "plugins/blueprint-core/evals/grilling--plan/prompt.md"
+  },
+  {
+    "id": "codebase-design",
+    "kind": "skill",
+    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/engineering/codebase-design",
+    "licence": "MIT",
+    "sha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
+    "tags": [
+      "design",
+      "architecture"
+    ],
+    "eval": "plugins/blueprint-review/evals/codebase-design--seam/prompt.md"
+  },
+  {
+    "id": "improve-codebase-architecture",
+    "kind": "skill",
+    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/engineering/improve-codebase-architecture",
+    "licence": "MIT",
+    "sha256": "552240a5ab5cec6b67c15dd1ad6e9f6962b1bca6ce870059a8c2713760c20392",
+    "tags": [
+      "architecture",
+      "refactor"
+    ],
+    "eval": "plugins/blueprint-review/evals/improve-codebase-architecture--explore/prompt.md"
+  },
+  {
+    "id": "systematic-debugging",
+    "kind": "skill",
+    "source": "obra/superpowers@8ca22dba9a94f28898bbce59f2537ff4d87c747d#skills/systematic-debugging",
+    "licence": "MIT",
+    "sha256": "808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787",
+    "tags": [
+      "debugging",
+      "process"
+    ],
+    "eval": "plugins/blueprint-core/evals/systematic-debugging--root-cause/prompt.md"
+  },
+  {
+    "id": "verification-before-completion",
+    "kind": "skill",
+    "source": "obra/superpowers@8ca22dba9a94f28898bbce59f2537ff4d87c747d#skills/verification-before-completion",
+    "licence": "MIT",
+    "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+    "tags": [
+      "verification",
+      "process"
+    ],
+    "eval": "plugins/blueprint-core/evals/verification-before-completion--claim-done/prompt.md"
+  },
+  {
+    "id": "verifier",
+    "kind": "agent",
+    "source": "blueprint@HEAD#plugins/blueprint-core/agents/verifier.md",
+    "licence": "Apache-2.0",
+    "sha256": "20feba2550422c0f7203dc043e33db1b488dea23929735347c66d75a74cd21ed",
+    "tags": [
+      "verification",
+      "agent"
+    ],
+    "eval": null
+  },
+  {
+    "id": "first-run",
+    "kind": "skill",
+    "source": "blueprint@HEAD#plugins/blueprint-review/skills/first-run",
+    "licence": "Apache-2.0",
+    "sha256": "9ab11cd88225a2cbdea65c2ae77a035796f5524fd6a1ca220112ffda43ff815a",
+    "tags": [
+      "onboarding",
+      "audit"
+    ],
+    "eval": "plugins/blueprint-review/evals/first-run--audit/prompt.md"
+  },
+  {
+    "id": "plan-critic",
+    "kind": "skill",
+    "source": "blueprint@HEAD#plugins/blueprint-review/skills/plan-critic",
+    "licence": "Apache-2.0",
+    "sha256": "d3a66bb2963c51d36b68b656aa49d37cf5d3d654841acc6417e0642dc05335b5",
+    "tags": [
+      "planning",
+      "review"
+    ],
+    "eval": "plugins/blueprint-review/evals/plan-critic--cycle/prompt.md"
+  },
+  {
+    "id": "complexity-surgeon",
+    "kind": "agent",
+    "source": "blueprint@HEAD#plugins/blueprint-review/agents/complexity-surgeon.md",
+    "licence": "Apache-2.0",
+    "sha256": "de56416d3605f1ebade05815a3f0b7e772d753df5ae11566ea8c59ece36ea60c",
+    "tags": [
+      "review",
+      "refactor"
+    ],
+    "eval": null
+  },
+  {
+    "id": "gate-triage",
+    "kind": "agent",
+    "source": "blueprint@HEAD#plugins/blueprint-ship/agents/gate-triage.md",
+    "licence": "Apache-2.0",
+    "sha256": "79a6320f55c76f4579a8289bfbe16f65c4f2db4d1eae47f6a2dd61f017d2fe3b",
+    "tags": [
+      "ship",
+      "ci"
+    ],
+    "eval": null
+  }
+]

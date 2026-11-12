@@ -1,0 +1,20 @@
+[
+  {
+    "file": "scripts/check-catalogue.mjs",
+    "search": "if (!LICENCES.includes(e.licence))",
+    "replace": "if (false)",
+    "test": "tests/check-catalogue.test.mjs"
+  },
+  {
+    "file": "scripts/check-catalogue.mjs",
+    "search": "if (!matched.has(p))",
+    "replace": "if (false)",
+    "test": "tests/check-catalogue.test.mjs"
+  },
+  {
+    "file": "scripts/check-catalogue.mjs",
+    "search": "if (!pack) {",
+    "replace": "if (false) {",
+    "test": "tests/check-catalogue.test.mjs"
+  }
+]
