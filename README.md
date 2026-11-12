@@ -58,6 +58,7 @@ It prints `added plan-critic to <folder>/.claude/skills/plan-critic`.
 
 - `plugins/blueprint-core`, `plugins/blueprint-review` and `plugins/blueprint-ship` each hold `skills/`, `agents/`, `rules/` and `evals/` folders.
 - `catalogue/catalogue.json` lists every pack. `routing/` holds the routing data the checks read.
+- `plugins/blueprint-ship/rollout/` holds a team rollout pack: a managed-settings template, a secrets guard hook and a stop hook that runs the repo gate. Its `README.md` says how to install it. Its three rules files are in `plugins/blueprint-ship/rules/`.
 - `upstreams.json` pins the upstream commits that some vendored skills come from. `NOTICE` credits them.
 - `scripts/` holds the checks and tools. `tests/` holds their tests.
 - `.factory/`, `.claude/` and `.github/` configure the factory and CI for this repo itself.
