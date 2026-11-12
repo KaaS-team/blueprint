@@ -1,0 +1,18 @@
+{
+  "skill": "visual-check",
+  "positive": [
+    "Screenshot the built page and compare it with the design before we call it done",
+    "Check how the UI looks against the design and write the gate line",
+    "Visual check of the finished component against the design screenshot"
+  ],
+  "negative": [
+    {
+      "prompt": "Read this Penpot export and list the components it shows",
+      "expect": "read-design"
+    },
+    {
+      "prompt": "Match each component to existing components and design tokens in the repo",
+      "expect": "design-system-map"
+    }
+  ]
+}

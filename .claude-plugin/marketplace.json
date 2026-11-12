@@ -19,6 +19,11 @@
       "name": "blueprint-ship",
       "source": "./plugins/blueprint-ship",
       "description": "Shipping skills for coding-agent teams."
+    },
+    {
+      "name": "blueprint-design",
+      "source": "./plugins/blueprint-design",
+      "description": "Design-to-code skills for coding-agent teams."
     }
   ]
 }

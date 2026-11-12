@@ -155,5 +155,45 @@
     ],
     "eval": null,
     "score": null
+  },
+  {
+    "id": "read-design",
+    "kind": "skill",
+    "source": "blueprint@673cd3f4a38cc3d45783d6dbc569991a99547041#plugins/blueprint-design/skills/read-design",
+    "licence": "Apache-2.0",
+    "sha256": "5e2f3b7bb61e1f567490f6af88fb7ddc3eec8467ec18e1f33e1c97fe972b28b5",
+    "tags": [
+      "design",
+      "ui"
+    ],
+    "eval": "plugins/blueprint-design/evals/read-design--screenshot/prompt.md",
+    "score": null
+  },
+  {
+    "id": "design-system-map",
+    "kind": "skill",
+    "source": "blueprint@673cd3f4a38cc3d45783d6dbc569991a99547041#plugins/blueprint-design/skills/design-system-map",
+    "licence": "Apache-2.0",
+    "sha256": "fddaab6f205e56d68af3a168dca0d685901be44a8aed76a8776ce1eafcc4b108",
+    "tags": [
+      "design",
+      "ui"
+    ],
+    "eval": "plugins/blueprint-design/evals/design-system-map--tokens/prompt.md",
+    "score": null
+  },
+  {
+    "id": "visual-check",
+    "kind": "skill",
+    "source": "blueprint@673cd3f4a38cc3d45783d6dbc569991a99547041#plugins/blueprint-design/skills/visual-check",
+    "licence": "Apache-2.0",
+    "sha256": "8411f3f2120ba1c7f733d348d11981a520c25ee52b5829c13c1374e123aa63f3",
+    "tags": [
+      "design",
+      "ui",
+      "verify"
+    ],
+    "eval": "plugins/blueprint-design/evals/visual-check--page/prompt.md",
+    "score": null
   }
 ]
