@@ -1,0 +1,6 @@
+{
+  "name": "sample-uploader",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test/" }
+}
