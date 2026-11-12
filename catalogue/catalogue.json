@@ -9,7 +9,8 @@
       "review",
       "quality"
     ],
-    "eval": "plugins/blueprint-review/evals/code-review-and-quality--diff/prompt.md"
+    "eval": "plugins/blueprint-review/evals/code-review-and-quality--diff/prompt.md",
+    "score": null
   },
   {
     "id": "domain-modeling",
@@ -22,7 +23,8 @@
       "language",
       "docs"
     ],
-    "eval": "plugins/blueprint-core/evals/domain-modeling--glossary/prompt.md"
+    "eval": "plugins/blueprint-core/evals/domain-modeling--glossary/prompt.md",
+    "score": null
   },
   {
     "id": "grilling",
@@ -34,7 +36,8 @@
       "planning",
       "review"
     ],
-    "eval": "plugins/blueprint-core/evals/grilling--plan/prompt.md"
+    "eval": "plugins/blueprint-core/evals/grilling--plan/prompt.md",
+    "score": null
   },
   {
     "id": "codebase-design",
@@ -46,7 +49,8 @@
       "design",
       "architecture"
     ],
-    "eval": "plugins/blueprint-review/evals/codebase-design--seam/prompt.md"
+    "eval": "plugins/blueprint-review/evals/codebase-design--seam/prompt.md",
+    "score": null
   },
   {
     "id": "improve-codebase-architecture",
@@ -58,7 +62,8 @@
       "architecture",
       "refactor"
     ],
-    "eval": "plugins/blueprint-review/evals/improve-codebase-architecture--explore/prompt.md"
+    "eval": "plugins/blueprint-review/evals/improve-codebase-architecture--explore/prompt.md",
+    "score": null
   },
   {
     "id": "systematic-debugging",
@@ -70,7 +75,8 @@
       "debugging",
       "process"
     ],
-    "eval": "plugins/blueprint-core/evals/systematic-debugging--root-cause/prompt.md"
+    "eval": "plugins/blueprint-core/evals/systematic-debugging--root-cause/prompt.md",
+    "score": null
   },
   {
     "id": "verification-before-completion",
@@ -82,66 +88,72 @@
       "verification",
       "process"
     ],
-    "eval": "plugins/blueprint-core/evals/verification-before-completion--claim-done/prompt.md"
+    "eval": "plugins/blueprint-core/evals/verification-before-completion--claim-done/prompt.md",
+    "score": null
   },
   {
     "id": "verifier",
     "kind": "agent",
-    "source": "blueprint@HEAD#plugins/blueprint-core/agents/verifier.md",
+    "source": "blueprint@550e01384d1c443fff261612c09e38ce0c86997e#plugins/blueprint-core/agents/verifier.md",
     "licence": "Apache-2.0",
     "sha256": "20feba2550422c0f7203dc043e33db1b488dea23929735347c66d75a74cd21ed",
     "tags": [
       "verification",
       "agent"
     ],
-    "eval": null
+    "eval": null,
+    "score": null
   },
   {
     "id": "first-run",
     "kind": "skill",
-    "source": "blueprint@HEAD#plugins/blueprint-review/skills/first-run",
+    "source": "blueprint@550e01384d1c443fff261612c09e38ce0c86997e#plugins/blueprint-review/skills/first-run",
     "licence": "Apache-2.0",
     "sha256": "9ab11cd88225a2cbdea65c2ae77a035796f5524fd6a1ca220112ffda43ff815a",
     "tags": [
       "onboarding",
       "audit"
     ],
-    "eval": "plugins/blueprint-review/evals/first-run--audit/prompt.md"
+    "eval": "plugins/blueprint-review/evals/first-run--audit/prompt.md",
+    "score": null
   },
   {
     "id": "plan-critic",
     "kind": "skill",
-    "source": "blueprint@HEAD#plugins/blueprint-review/skills/plan-critic",
+    "source": "blueprint@550e01384d1c443fff261612c09e38ce0c86997e#plugins/blueprint-review/skills/plan-critic",
     "licence": "Apache-2.0",
     "sha256": "d3a66bb2963c51d36b68b656aa49d37cf5d3d654841acc6417e0642dc05335b5",
     "tags": [
       "planning",
       "review"
     ],
-    "eval": "plugins/blueprint-review/evals/plan-critic--cycle/prompt.md"
+    "eval": "plugins/blueprint-review/evals/plan-critic--cycle/prompt.md",
+    "score": null
   },
   {
     "id": "complexity-surgeon",
     "kind": "agent",
-    "source": "blueprint@HEAD#plugins/blueprint-review/agents/complexity-surgeon.md",
+    "source": "blueprint@550e01384d1c443fff261612c09e38ce0c86997e#plugins/blueprint-review/agents/complexity-surgeon.md",
     "licence": "Apache-2.0",
     "sha256": "de56416d3605f1ebade05815a3f0b7e772d753df5ae11566ea8c59ece36ea60c",
     "tags": [
       "review",
       "refactor"
     ],
-    "eval": null
+    "eval": null,
+    "score": null
   },
   {
     "id": "gate-triage",
     "kind": "agent",
-    "source": "blueprint@HEAD#plugins/blueprint-ship/agents/gate-triage.md",
+    "source": "blueprint@550e01384d1c443fff261612c09e38ce0c86997e#plugins/blueprint-ship/agents/gate-triage.md",
     "licence": "Apache-2.0",
     "sha256": "79a6320f55c76f4579a8289bfbe16f65c4f2db4d1eae47f6a2dd61f017d2fe3b",
     "tags": [
       "ship",
       "ci"
     ],
-    "eval": null
+    "eval": null,
+    "score": null
   }
 ]

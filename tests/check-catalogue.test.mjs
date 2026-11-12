@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { assertFails, assertPasses, fixture, ROOT } from './helpers.mjs';
 
@@ -10,8 +11,8 @@ const OWN_MD = '---\nname: mine\ndescription: Use when mining\n---\n';
 const dir = 'plugins/blueprint-core/skills/demo';
 
 const upstream = { repo: 'o/r', sha: SHA, licence: 'MIT', files: [{ from: 'skills/demo/SKILL.md', to: `${dir}/SKILL.md`, sha256: sum(SKILL_MD) }] };
-const demo = { id: 'demo', kind: 'skill', source: `o/r@${SHA}#skills/demo`, licence: 'MIT', sha256: sum(SKILL_MD), tags: ['x'], eval: null };
-const mine = { id: 'mine', kind: 'skill', source: 'blueprint@HEAD#plugins/blueprint-core/skills/mine', licence: 'Apache-2.0', sha256: sum(OWN_MD), tags: ['x'], eval: null };
+const demo = { id: 'demo', kind: 'skill', source: `o/r@${SHA}#skills/demo`, licence: 'MIT', sha256: sum(SKILL_MD), tags: ['x'], eval: null, score: null };
+const mine = { id: 'mine', kind: 'skill', source: `blueprint@${SHA}#plugins/blueprint-core/skills/mine`, licence: 'Apache-2.0', sha256: sum(OWN_MD), tags: ['x'], eval: null, score: null };
 
 function repo({ entries = [demo, mine], pins = [upstream], extra = {} } = {}) {
   return fixture({
@@ -54,4 +55,24 @@ test('fails on a duplicate id, a bad kind, empty tags and a missing eval file', 
 test('an agent must be catalogued too', () => {
   const extra = { 'plugins/blueprint-core/agents/helper.md': '---\nname: helper\n---\n' };
   assertFails(SCRIPT, repo({ extra }), /agents\/helper\.md: not in the catalogue/);
+});
+
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+const withSource = (source) => repo({ entries: [demo, { ...mine, source }] });
+
+test('fails when an own entry uses @HEAD', () => {
+  assertFails(SCRIPT, withSource('blueprint@HEAD#plugins/blueprint-core/skills/mine'), /not a release tag or a full commit sha/);
+});
+test('passes an own entry pinned to a full sha or a release tag', () => {
+  assertPasses(SCRIPT, withSource(`blueprint@${SHA}#plugins/blueprint-core/skills/mine`));
+  assertPasses(SCRIPT, withSource('blueprint@v0.2.0#plugins/blueprint-core/skills/mine'));
+});
+test('fails when an entry has no score field', () => {
+  const { score, ...bare } = { ...mine, score: null };
+  assertFails(SCRIPT, repo({ entries: [demo, bare] }), /score is missing/);
+});
+test('every real catalogue entry has a score field', () => {
+  const entries = JSON.parse(readFileSync(join(ROOT, 'catalogue', 'catalogue.json'), 'utf8'));
+  for (const e of entries) assert.ok('score' in e, `${e.id} has no score`);
 });

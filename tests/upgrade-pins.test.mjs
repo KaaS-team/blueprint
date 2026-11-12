@@ -180,8 +180,8 @@ test('the CLI honours --dry-run against a local upstream base', () => {
 function withCatalogue(old, up) {
   const root = blueprint(up.first, old);
   const body = JSON.stringify([
-    { id: 'tidy', kind: 'skill', source: `acme/skills@${up.first}#skills/tidy`, licence: 'MIT', sha256: sha(old), tags: ['notes'], eval: 'plugins/g/evals/tidy--basic/prompt.md' },
-    { id: 'bake', kind: 'skill', source: 'blueprint@HEAD#plugins/g/skills/bake', licence: 'Apache-2.0', sha256: sha(read(root, 'plugins/g/skills/bake/SKILL.md')), tags: ['food'], eval: 'plugins/g/evals/bake--basic/prompt.md' },
+    { id: 'tidy', kind: 'skill', source: `acme/skills@${up.first}#skills/tidy`, licence: 'MIT', sha256: sha(old), tags: ['notes'], eval: 'plugins/g/evals/tidy--basic/prompt.md', score: null },
+    { id: 'bake', kind: 'skill', source: `blueprint@${up.first}#plugins/g/skills/bake`, licence: 'Apache-2.0', sha256: sha(read(root, 'plugins/g/skills/bake/SKILL.md')), tags: ['food'], eval: 'plugins/g/evals/bake--basic/prompt.md', score: null },
   ]);
   mkdirSync(join(root, 'catalogue'), { recursive: true });
   writeFileSync(join(root, 'catalogue/catalogue.json'), body);
