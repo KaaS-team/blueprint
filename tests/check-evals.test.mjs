@@ -85,3 +85,17 @@ test('a changed SKILL.md with a case change passes', () => {
   const r = runWithBase(dir);
   assert.equal(r.code, 0, r.out);
 });
+
+import { createHash } from 'node:crypto';
+const sha256 = (s) => createHash('sha256').update(s).digest('hex');
+const pinnedPrompt = (hash) => `---\nmax_turns: 10\nskill_sha256: ${hash}\n---\nDo the demo thing.\n`;
+
+test('a skill_sha256 that matches the SKILL.md passes', () => {
+  const hash = sha256(files()[SKILL]);
+  assertPasses(SCRIPT, fixture(files({ [`${CASE}/prompt.md`]: pinnedPrompt(hash) })));
+});
+
+test('a skill_sha256 that differs from the SKILL.md fails', () => {
+  const dir = fixture(files({ [`${CASE}/prompt.md`]: pinnedPrompt(sha256('old text')) }));
+  assertFails(SCRIPT, dir, /skill_sha256 differs/);
+});
