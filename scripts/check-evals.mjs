@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { finish, listFiles, readText, rootFromArgs } from './lib.mjs';
+import { finish, listFiles, readText, rootFromArgs, sha256File } from './lib.mjs';
 
 const root = rootFromArgs();
 const problems = [];
@@ -56,6 +56,11 @@ for (const [key, caseFiles] of cases) {
     problems.push(`${label}: no prompt.md`);
   } else {
     const text = readText(root, promptPath);
+    const pinned = fields(text).skill_sha256;
+    if (pinned !== undefined) {
+      const actual = sha256File(root, `plugins/${group}/skills/${skill}/SKILL.md`);
+      if (pinned !== actual) problems.push(`${label}: skill_sha256 differs from the SKILL.md of ${skill}`);
+    }
     if (!fields(text).max_turns) problems.push(`${label}: prompt.md has no max_turns`);
     if (!body(text)) problems.push(`${label}: prompt.md has an empty body`);
   }

@@ -4,7 +4,7 @@ import { finish, listFiles, rootFromArgs, sha256File, upstreams } from './lib.mj
 
 export const KINDS = ['skill', 'agent', 'workflow', 'check'];
 export const LICENCES = ['MIT', 'Apache-2.0'];
-const SOURCE = /^([\w.-]+(?:\/[\w.-]+)?)@([0-9a-f]{40}|HEAD)#(.+)$/;
+const SOURCE = /^([\w.-]+(?:\/[\w.-]+)?)@([^@#\s]+)#(.+)$/;
 
 // One pack per vendored SKILL.md: where it lives here, where it comes from, and the pinned hash of its SKILL.md.
 export function upstreamPacks(root) {
@@ -42,6 +42,7 @@ export function checkCatalogue(root) {
     if (!LICENCES.includes(e.licence)) problems.push(`${label}: licence "${e.licence}" is not MIT or Apache-2.0`);
     if (!/^[0-9a-f]{64}$/.test(e.sha256 ?? '')) problems.push(`${label}: sha256 is not 64 lowercase hex`);
     if (!Array.isArray(e.tags) || e.tags.length === 0 || e.tags.some((t) => typeof t !== 'string' || !t)) problems.push(`${label}: tags must be a non-empty list of strings`);
+    if (!('score' in e) || (e.score !== null && typeof e.score !== 'number')) problems.push(`${label}: score is missing or is not null or a number`);
     if (e.eval !== null && (typeof e.eval !== 'string' || !existsSync(join(root, e.eval)))) problems.push(`${label}: eval "${e.eval}" is not null or an existing file`);
 
     const m = SOURCE.exec(e.source ?? '');
@@ -50,12 +51,18 @@ export function checkCatalogue(root) {
       continue;
     }
     const [, repo, sha, srcPath] = m;
-    if (sha === 'HEAD') {
+    if (repo === 'blueprint') {
       // An own entry: the path is in this repo and the hash is of that file (a skill's SKILL.md).
+      // The ref must be fixed: a release tag, or a full commit sha when no tag exists. HEAD moves, so it fails.
+      if (!/^(v\d+\.\d+\.\d+|[0-9a-f]{40})$/.test(sha)) problems.push(`${label}: source ref "${sha}" is not a release tag or a full commit sha`);
       covered.add(srcPath);
       const file = srcPath.endsWith('.md') ? srcPath : `${srcPath}/SKILL.md`;
       if (!existsSync(join(root, file))) problems.push(`${label}: ${file} is missing on disk`);
       else if (sha256File(root, file) !== e.sha256) problems.push(`${label}: sha256 differs from ${file}`);
+      continue;
+    }
+    if (!/^[0-9a-f]{40}$/.test(sha)) {
+      problems.push(`${label}: source ref "${sha}" is not a full commit sha`);
       continue;
     }
     const pack = packs.find((p) => p.repo === repo && p.path === srcPath);
