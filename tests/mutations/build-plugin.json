@@ -1,0 +1,14 @@
+[
+  {
+    "file": "scripts/build-plugin.mjs",
+    "search": "if (existsSync(dest) && sha256(readFileSync(dest)) === f.sha256) continue;",
+    "replace": "if (false) continue;",
+    "test": "tests/build-plugin.test.mjs"
+  },
+  {
+    "file": "scripts/build-plugin.mjs",
+    "search": "if (sha256(bytes) !== f.sha256)",
+    "replace": "if (false)",
+    "test": "tests/build-plugin.test.mjs"
+  }
+]

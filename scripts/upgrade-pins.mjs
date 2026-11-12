@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DEFAULT_ROOT } from './lib.mjs';
+
+const CATALOGUE = 'catalogue/catalogue.json';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CHECKS = ['check-vendor.mjs', 'check-evals.mjs', 'check-routing.mjs'];
@@ -37,7 +39,8 @@ export function gitSource(base = 'https://github.com') {
 // Runs the three offline checks against root. Returns { ok, output }.
 export function offlineChecks(root) {
   let output = '';
-  for (const c of CHECKS) {
+  const checks = existsSync(join(root, CATALOGUE)) ? [...CHECKS, 'check-catalogue.mjs'] : CHECKS;
+  for (const c of checks) {
     const r = spawnSync(process.execPath, [join(HERE, c), root], { encoding: 'utf8' });
     output += `${r.stdout}${r.stderr}`;
     if (r.status !== 0) return { ok: false, output };
@@ -50,6 +53,20 @@ function setNoticeSha(notice, repo, from, to) {
     .split('\n')
     .map((l) => (l.includes(repo) && l.includes(from) ? l.replaceAll(from, to) : l))
     .join('\n');
+}
+
+// Sets skill_sha256 in the front matter of an eval prompt, replacing the line when it is there.
+export function setEvalHash(text, hash) {
+  const line = `skill_sha256: ${hash}`;
+  if (/^skill_sha256:.*$/m.test(text)) return text.replace(/^skill_sha256:.*$/m, line);
+  return text.replace(/^---\r?\n([\s\S]*?)\r?\n---/, (_, fm) => `---\n${fm}\n${line}\n---`);
+}
+
+// The eval case prompts that score a skill: plugins/<group>/evals/<skill>--<case>/prompt.md.
+function evalPrompts(root, group, skill) {
+  const dir = join(root, 'plugins', group, 'evals');
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter((n) => n.startsWith(`${skill}--`)).sort().map((n) => `plugins/${group}/evals/${n}/prompt.md`).filter((f) => existsSync(join(root, f)));
 }
 
 // Returns one result per upstream: { repo, status: 'current' | 'would-bump' | 'bumped' | 'held', reason?, from, to }.
@@ -86,7 +103,14 @@ export async function upgradePins({ root = DEFAULT_ROOT, source = gitSource(), r
       }
 
       // Apply in place, run the checks, and restore the old bytes if they fail.
-      const before = new Map(u.files.map((f) => [f.to, existsSync(join(root, f.to)) ? readFileSync(join(root, f.to)) : null]));
+      // A changed SKILL.md also edits the eval cases that score it, which the changed-case rule of check-evals asks for.
+      const evalEdits = [];
+      for (const { f, bytes } of changed) {
+        const m = /^plugins\/([^/]+)\/skills\/([^/]+)\/SKILL\.md$/.exec(f.to);
+        if (m) for (const file of evalPrompts(root, m[1], m[2])) evalEdits.push({ file, hash: sha256(bytes) });
+      }
+      const touched = [...u.files.map((f) => f.to), ...evalEdits.map((e) => e.file), CATALOGUE];
+      const before = new Map(touched.map((to) => [to, existsSync(join(root, to)) ? readFileSync(join(root, to)) : null]));
       const oldPins = readFileSync(pinsPath, 'utf8');
       const oldNotice = existsSync(noticePath) ? readFileSync(noticePath, 'utf8') : null;
       const restore = () => {
@@ -108,6 +132,19 @@ export async function upgradePins({ root = DEFAULT_ROOT, source = gitSource(), r
       for (const f of entry.files) f.sha256 = fetched.find((x) => x.f.to === f.to).f.sha256;
       writeFileSync(pinsPath, `${JSON.stringify(next, null, 2)}\n`);
       if (oldNotice !== null) writeFileSync(noticePath, setNoticeSha(oldNotice, u.repo, u.sha, head));
+      for (const { file, hash } of evalEdits) writeFileSync(join(root, file), setEvalHash(readFileSync(join(root, file), 'utf8'), hash));
+      if (before.get(CATALOGUE)) {
+        const cat = JSON.parse(before.get(CATALOGUE).toString('utf8'));
+        for (const e of cat) {
+          const m = /^([\w.-]+\/[\w.-]+)@[0-9a-f]{40}#(.+)$/.exec(e.source);
+          if (!m || m[1] !== u.repo) continue;
+          const skill = entry.files.find((f) => f.to.endsWith('/SKILL.md') && f.from === `${m[2]}/SKILL.md`);
+          if (!skill) continue;
+          e.source = `${u.repo}@${head}#${m[2]}`;
+          e.sha256 = skill.sha256;
+        }
+        writeFileSync(join(root, CATALOGUE), `${JSON.stringify(cat, null, 2)}\n`);
+      }
 
       const check = runChecks(root);
       if (check.ok) {

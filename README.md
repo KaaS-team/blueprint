@@ -35,6 +35,17 @@ node bin/kaas-blueprint.mjs add plan-critic
 
 `node scripts/upgrade-pins.mjs` looks up the HEAD of each upstream in `upstreams.json` with `git ls-remote` and fetches the pinned files at that commit. When any file differs, it writes the new commit and sha256 values, updates the NOTICE line, and runs `check-vendor`, `check-evals` and `check-routing`. If one of them fails, it restores the old pin and bytes and prints why the pin was held. `--dry-run` prints the plan and writes nothing. It exits 1 when any pin was held. Set `UPGRADE_PINS_BASE` to a folder of bare repos to use a local upstream.
 
+## Catalogue
+
+`catalogue/catalogue.json` lists every pack: `id`, `kind` (skill, agent, workflow or check), `source`, `licence`, `sha256`, `tags` and `eval`.
+
+- `source` is `repo@sha#path`. For an upstream pack the sha is the pin in `upstreams.json`. For a pack that lives in this repo it is `blueprint@HEAD#path`.
+- `sha256` is the hash of the pack's `SKILL.md`, or of the agent file. `eval` is the eval prompt that scores the pack, or null.
+- The factory reads the file, picks packs by tag, and fetches each one by its `source`, checking the bytes against `sha256`.
+- `scripts/check-catalogue.mjs` fails when the catalogue and `upstreams.json` disagree in either direction, when a skill or agent here is missing, or when a licence is not MIT or Apache-2.0.
+- `node scripts/build-plugin.mjs` restores the vendored plugin copies from the pinned commits. Copies that already match their pin are left alone.
+- `upgrade-pins` updates the catalogue entry, and writes `skill_sha256` into the eval prompts of a skill whose `SKILL.md` changed.
+
 ## Checks
 
 `make check` runs the structure, prose and link checks, then the node tests. It needs only Node and make.
