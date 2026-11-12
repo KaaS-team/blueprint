@@ -1,7 +1,7 @@
 [
   {
     "repo": "addyosmani/agent-skills",
-    "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+    "sha": "301b02b12bff98e4688e6984af6556802322bbde",
     "licence": "MIT",
     "files": [
       {
@@ -12,13 +12,13 @@
       {
         "from": "skills/code-review-and-quality/SKILL.md",
         "to": "plugins/blueprint-review/skills/code-review-and-quality/SKILL.md",
-        "sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e"
+        "sha256": "a47551daf26e3cc5670f5286f9e4850c2fc662d5ba08b86eee895254f3851797"
       }
     ]
   },
   {
     "repo": "mattpocock/skills",
-    "sha": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+    "sha": "5863806dd4e15c63174bee4e7515a4256792ecfa",
     "licence": "MIT",
     "files": [
       {
@@ -49,7 +49,7 @@
       {
         "from": "skills/productivity/grilling/SKILL.md",
         "to": "plugins/blueprint-core/skills/grilling/SKILL.md",
-        "sha256": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15"
+        "sha256": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2"
       },
       {
         "from": "skills/engineering/codebase-design/DEEPENING.md",
@@ -59,7 +59,7 @@
       {
         "from": "skills/engineering/codebase-design/DESIGN-IT-TWICE.md",
         "to": "plugins/blueprint-review/skills/codebase-design/DESIGN-IT-TWICE.md",
-        "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
+        "sha256": "c222ab5a82e0405672eb9062d62496139a08828e45d07fc5f18e4952c10fac1a"
       },
       {
         "from": "LICENSE",
@@ -84,13 +84,13 @@
       {
         "from": "skills/engineering/improve-codebase-architecture/SKILL.md",
         "to": "plugins/blueprint-review/skills/improve-codebase-architecture/SKILL.md",
-        "sha256": "552240a5ab5cec6b67c15dd1ad6e9f6962b1bca6ce870059a8c2713760c20392"
+        "sha256": "35b03a3db61e0f5aa333ea59b54963e45a3d2ace6649b2ef4f9576603e2582a6"
       }
     ]
   },
   {
     "repo": "obra/superpowers",
-    "sha": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+    "sha": "22f0b463e7a5e579904dd6211a520321035526f7",
     "licence": "MIT",
     "files": [
       {
@@ -101,7 +101,7 @@
       {
         "from": "skills/systematic-debugging/SKILL.md",
         "to": "plugins/blueprint-core/skills/systematic-debugging/SKILL.md",
-        "sha256": "808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787"
+        "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202"
       },
       {
         "from": "skills/systematic-debugging/condition-based-waiting-example.ts",

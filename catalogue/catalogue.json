@@ -2,9 +2,9 @@
   {
     "id": "code-review-and-quality",
     "kind": "skill",
-    "source": "addyosmani/agent-skills@1401c8b8030e023baeebb31781a6653fe8e93026#skills/code-review-and-quality",
+    "source": "addyosmani/agent-skills@301b02b12bff98e4688e6984af6556802322bbde#skills/code-review-and-quality",
     "licence": "MIT",
-    "sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e",
+    "sha256": "a47551daf26e3cc5670f5286f9e4850c2fc662d5ba08b86eee895254f3851797",
     "tags": [
       "review",
       "quality"
@@ -15,7 +15,7 @@
   {
     "id": "domain-modeling",
     "kind": "skill",
-    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/engineering/domain-modeling",
+    "source": "mattpocock/skills@5863806dd4e15c63174bee4e7515a4256792ecfa#skills/engineering/domain-modeling",
     "licence": "MIT",
     "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
     "tags": [
@@ -29,9 +29,9 @@
   {
     "id": "grilling",
     "kind": "skill",
-    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/productivity/grilling",
+    "source": "mattpocock/skills@5863806dd4e15c63174bee4e7515a4256792ecfa#skills/productivity/grilling",
     "licence": "MIT",
-    "sha256": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15",
+    "sha256": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
     "tags": [
       "planning",
       "review"
@@ -42,7 +42,7 @@
   {
     "id": "codebase-design",
     "kind": "skill",
-    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/engineering/codebase-design",
+    "source": "mattpocock/skills@5863806dd4e15c63174bee4e7515a4256792ecfa#skills/engineering/codebase-design",
     "licence": "MIT",
     "sha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
     "tags": [
@@ -55,9 +55,9 @@
   {
     "id": "improve-codebase-architecture",
     "kind": "skill",
-    "source": "mattpocock/skills@5beb35b040e3de97e54fa9e386d7e42d15c295c2#skills/engineering/improve-codebase-architecture",
+    "source": "mattpocock/skills@5863806dd4e15c63174bee4e7515a4256792ecfa#skills/engineering/improve-codebase-architecture",
     "licence": "MIT",
-    "sha256": "552240a5ab5cec6b67c15dd1ad6e9f6962b1bca6ce870059a8c2713760c20392",
+    "sha256": "35b03a3db61e0f5aa333ea59b54963e45a3d2ace6649b2ef4f9576603e2582a6",
     "tags": [
       "architecture",
       "refactor"
@@ -68,9 +68,9 @@
   {
     "id": "systematic-debugging",
     "kind": "skill",
-    "source": "obra/superpowers@8ca22dba9a94f28898bbce59f2537ff4d87c747d#skills/systematic-debugging",
+    "source": "obra/superpowers@22f0b463e7a5e579904dd6211a520321035526f7#skills/systematic-debugging",
     "licence": "MIT",
-    "sha256": "808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787",
+    "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
     "tags": [
       "debugging",
       "process"
@@ -81,7 +81,7 @@
   {
     "id": "verification-before-completion",
     "kind": "skill",
-    "source": "obra/superpowers@8ca22dba9a94f28898bbce59f2537ff4d87c747d#skills/verification-before-completion",
+    "source": "obra/superpowers@22f0b463e7a5e579904dd6211a520321035526f7#skills/verification-before-completion",
     "licence": "MIT",
     "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
     "tags": [
