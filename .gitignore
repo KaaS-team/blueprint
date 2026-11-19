@@ -1,2 +1,3 @@
 reports/
 plugins/*/evals/results/
+node_modules/

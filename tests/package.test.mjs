@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { ROOT } from './helpers.mjs';
@@ -25,7 +25,13 @@ test('npm pack then npx of the tarball prints usage', () => {
   assert.equal(pack.status, 0, pack.stderr);
   const tgz = readdirSync(dir).find((f) => /^kaas-blueprint-.*\.tgz$/.test(f));
   assert.ok(tgz, `no tarball in ${dir}`);
-  const r = spawnSync('npx', ['--yes', `./${tgz}`, '--help'], { cwd: dir, env, encoding: 'utf8' });
+  // npx would fetch the SDK from the registry, which tests must not reach.
+  // Unpack the tarball and run it with the repo's installed dependencies instead.
+  const tar = spawnSync('tar', ['-xzf', join(dir, tgz), '-C', dir], { encoding: 'utf8' });
+  assert.equal(tar.status, 0, tar.stderr);
+  symlinkSync(join(ROOT, 'node_modules'), join(dir, 'package', 'node_modules'));
+  assert.ok(existsSync(join(dir, 'package', 'src', 'mcp', 'server.mjs')), 'src/mcp must be packed');
+  const r = spawnSync(process.execPath, [join(dir, 'package', 'bin', 'kaas-blueprint.mjs'), '--help'], { encoding: 'utf8' });
   assert.equal(r.status, 0, `${r.stdout}${r.stderr}`);
   assert.match(r.stdout, /Usage:/);
   assert.match(r.stdout, /kaas-blueprint add/);
