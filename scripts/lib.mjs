@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 export const BANNED = /\b(?:kaas|lwp|learnwithparam)\b/i;
 export const DOMAIN = /\bkaas\.team\b/gi;
 // The installer's command name is allowed, like the domain.
-export const COMMAND = /\bkaas-blueprint\b/gi;
+export const COMMAND = /\bkaas-blueprint\b|\bgithub:KaaS-team\/blueprint\b/gi;
 
 export const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 

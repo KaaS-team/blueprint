@@ -48,6 +48,7 @@ export function detectStack(dir) {
   if (gomod) {
     add('go', 'go.mod');
     add('backend', 'go.mod (Go module)');
+    add('tests', 'go test is built into Go');
   }
   const py = read(dir, 'pyproject.toml') ?? read(dir, 'requirements.txt');
   if (py !== null) {
@@ -60,6 +61,7 @@ export function detectStack(dir) {
   if (read(dir, 'Cargo.toml') !== null) {
     add('rust', 'Cargo.toml');
     add('backend', 'Cargo.toml (Rust crate)');
+    add('tests', 'cargo test is built into Rust');
   }
   if (existsSync(join(dir, '.github', 'workflows')) || existsSync(join(dir, '.gitlab-ci.yml'))) {
     add('ci', existsSync(join(dir, '.gitlab-ci.yml')) ? '.gitlab-ci.yml' : '.github/workflows');

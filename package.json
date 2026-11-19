@@ -9,5 +9,17 @@
   "engines": {
     "node": ">=22"
   },
-  "files": ["bin/", "scripts/recommend.mjs", "plugins/", "catalogue/", "LICENSE", "NOTICE"]
+  "files": [
+    "bin/",
+    "src/",
+    "scripts/recommend.mjs",
+    "plugins/",
+    "catalogue/",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "zod": "4.6.7"
+  }
 }
