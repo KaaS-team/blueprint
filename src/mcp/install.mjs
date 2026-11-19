@@ -1,3 +1,5 @@
+// Copies one skill folder into an agent's skills folder.
+// Called by the install_skill tool in src/mcp/server.mjs.
 import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';

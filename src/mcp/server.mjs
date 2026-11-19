@@ -1,3 +1,5 @@
+// The MCP server: registers search_skills, get_skill, recommend_for_repo and install_skill.
+// Started over stdio by bin/kaas-blueprint.mjs. Each tool is a thin wrapper over catalog.mjs or install.mjs.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';

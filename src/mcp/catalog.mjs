@@ -1,3 +1,5 @@
+// Reads catalogue/catalogue.json and the plugin skill folders, then searches and ranks skills.
+// Called by src/mcp/server.mjs for the search, get and recommend tools.
 import { detectStack, recommend } from '../../scripts/recommend.mjs';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
