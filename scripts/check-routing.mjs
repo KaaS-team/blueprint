@@ -64,6 +64,7 @@ if (prompts.length) {
     if (got !== p.expected) misses.push({ ...p, got });
   }
   const acc = (prompts.length - misses.length) / prompts.length;
+  console.log(`routing eval: ${prompts.length - misses.length}/${prompts.length} rank-1 (${(acc * 100).toFixed(1)}%), minimum ${MIN_RANK1 * 100}%`);
   if (acc < MIN_RANK1) {
     problems.push(`rank-1 accuracy ${(acc * 100).toFixed(1)}% is under ${MIN_RANK1 * 100}%`);
     for (const m of misses) problems.push(`  miss: "${m.prompt}" expected ${m.expected}, got ${m.got}`);
