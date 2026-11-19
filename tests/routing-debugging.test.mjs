@@ -21,12 +21,13 @@ function docs() {
   return out;
 }
 
-test('real bug, crash and flaky test prompts route to systematic-debugging', () => {
+test('every routing prompt, positive and negative, ranks its expected skill first', () => {
   const all = docs();
-  for (const p of [
-    'There is a bug where the page crashes on load with unexpected behavior, find the root cause',
-    'A flaky test failure keeps showing up, find the cause before proposing fixes',
-  ]) assert.equal(rank(all, p)[0], 'systematic-debugging', p);
+  for (const f of readdirSync(join(ROOT, 'routing'))) {
+    const j = JSON.parse(readFileSync(join(ROOT, 'routing', f), 'utf8'));
+    const rows = [...j.positive.map((p) => [p, j.skill]), ...j.negative.map((n) => [n.prompt, n.expect])];
+    for (const [p, want] of rows) assert.equal(rank(all, p)[0], want, p);
+  }
 });
 
 test('every real skill is the top pick for at least one of its own positive prompts', () => {
