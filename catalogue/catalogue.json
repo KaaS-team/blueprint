@@ -2,9 +2,9 @@
   {
     "id": "code-review-and-quality",
     "kind": "skill",
-    "source": "addyosmani/agent-skills@301b02b12bff98e4688e6984af6556802322bbde#skills/code-review-and-quality",
+    "source": "addyosmani/agent-skills@8c99fa36d90068c82d547f7c12a9d67a3e95f4ee#skills/code-review-and-quality",
     "licence": "MIT",
-    "sha256": "a47551daf26e3cc5670f5286f9e4850c2fc662d5ba08b86eee895254f3851797",
+    "sha256": "4699e7a1b4ad2f325a77cad28d9f78ea11fd9f7f0e1e813e0cbbbab4e7964607",
     "tags": [
       "review",
       "quality"

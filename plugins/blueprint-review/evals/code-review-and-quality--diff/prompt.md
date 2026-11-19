@@ -1,7 +1,7 @@
 ---
 max_turns: 10
 allowed_tools: [Read, Glob, Grep, Skill]
-skill_sha256: a47551daf26e3cc5670f5286f9e4850c2fc662d5ba08b86eee895254f3851797
+skill_sha256: 4699e7a1b4ad2f325a77cad28d9f78ea11fd9f7f0e1e813e0cbbbab4e7964607
 ---
 Review this diff before I merge it:
 
