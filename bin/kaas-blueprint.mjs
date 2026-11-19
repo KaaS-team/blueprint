@@ -19,6 +19,7 @@ const AGENTS = {
 const USAGE = `Usage:
   kaas-blueprint list [--json] [--from <dir>]
   kaas-blueprint mcp
+  kaas-blueprint init --team [--agents claude,cursor,codex,gemini] [--dry-run] [--dir <repo>]
   kaas-blueprint add <skill-or-group>... [--agent <name>] [--global] [--dir <path>] [--force] [--from <dir>]
 
 Agents: ${Object.entries(AGENTS).map(([a, d]) => `${a} (${d})`).join(', ')}. Default: claude.
@@ -38,8 +39,8 @@ function usageError(message) {
 
 function parse(argv) {
   const opts = { agent: 'claude', names: [] };
-  const valued = { '--agent': 'agent', '--dir': 'dir', '--from': 'from' };
-  const flags = { '--global': 'global', '--force': 'force', '--json': 'json' };
+  const valued = { '--agent': 'agent', '--dir': 'dir', '--agents': 'agents', '--from': 'from' };
+  const flags = { '--global': 'global', '--force': 'force', '--json': 'json', '--team': 'team', '--dry-run': 'dryRun' };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (valued[arg]) {
@@ -84,6 +85,25 @@ function catalog(root) {
   return { rows, groups };
 }
 
+async function initTeam() {
+  if (!opts.team) usageError('init needs --team');
+  const { TARGETS, planTeam, applyTeam } = await import('../plugins/blueprint-ship/rollout/team.mjs');
+  const targets = opts.agents ? opts.agents.split(',').map((t) => t.trim()) : TARGETS;
+  const bad = targets.find((t) => !TARGETS.includes(t));
+  if (bad) usageError(`unknown agent "${bad}". Choose from: ${TARGETS.join(', ')}`);
+  const repo = resolve(opts.dir ?? process.cwd());
+  let changes;
+  try {
+    changes = planTeam(repo, targets);
+  } catch (e) {
+    fail(EXIT_REFUSED, e.message);
+  }
+  if (changes.length === 0) out('nothing to change');
+  for (const c of changes) out(`${opts.dryRun ? 'would ' : ''}${c.action} ${c.path}`);
+  if (!opts.dryRun) applyTeam(repo, changes);
+  process.exit(0);
+}
+
 const [command, ...rest] = process.argv.slice(2);
 if (command === 'mcp') {
   const { serveStdio } = await import('../src/mcp/server.mjs');
@@ -95,8 +115,9 @@ if (command === '--help' || command === '-h' || command === 'help') {
   process.stdout.write(USAGE);
   process.exit(0);
 }
-if (command !== 'list' && command !== 'add') usageError(command ? `unknown command ${command}` : 'no command given');
+if (command !== 'list' && command !== 'add' && command !== 'init') usageError(command ? `unknown command ${command}` : 'no command given');
 const opts = parse(rest);
+if (command === 'init') await initTeam();
 if (!(opts.agent in AGENTS)) usageError(`unknown agent "${opts.agent}"`);
 if (opts.dir && opts.global) usageError('--dir and --global cannot be used together');
 
