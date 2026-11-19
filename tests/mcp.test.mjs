@@ -39,7 +39,7 @@ test('the server lists its four tools, searches, gets and recommends', async () 
 
     const rec = JSON.parse((await call(client, 'recommend_for_repo', { path: GO_REPO })).text);
     assert.ok(rec.evidence.includes('go.mod'));
-    assert.ok(rec.evidence.includes('.github/workflows/ci.yml'));
+    assert.ok(rec.evidence.includes('.github/workflows'));
     const top = rec.recommendations.slice(0, 3).map((r) => r.id);
     assert.ok(top.includes('verification-before-completion'), top.join());
     const ui = rec.recommendations.findIndex((r) => r.tags.includes('ui'));

@@ -12,6 +12,7 @@
   "files": [
     "bin/",
     "src/",
+    "scripts/recommend.mjs",
     "plugins/",
     "catalogue/",
     "LICENSE",

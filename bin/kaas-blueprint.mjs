@@ -4,6 +4,8 @@ import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'node:process';
+import { readFileSync } from 'node:fs';
+import { recommend } from '../scripts/recommend.mjs';
 
 const EXIT_REFUSED = 1;
 const EXIT_UNKNOWN = 2;
@@ -18,6 +20,7 @@ const AGENTS = {
 
 const USAGE = `Usage:
   kaas-blueprint list [--json] [--from <dir>]
+  kaas-blueprint recommend [<repo-dir>] [--json] [--from <dir>]
   kaas-blueprint mcp
   kaas-blueprint init --team [--agents claude,cursor,codex,gemini] [--dry-run] [--dir <repo>]
   kaas-blueprint add <skill-or-group>... [--agent <name>] [--global] [--dir <path>] [--force] [--from <dir>]
@@ -115,7 +118,7 @@ if (command === '--help' || command === '-h' || command === 'help') {
   process.stdout.write(USAGE);
   process.exit(0);
 }
-if (command !== 'list' && command !== 'add' && command !== 'init') usageError(command ? `unknown command ${command}` : 'no command given');
+if (command !== 'list' && command !== 'add' && command !== 'init' && command !== 'recommend') usageError(command ? `unknown command ${command}` : 'no command given');
 const opts = parse(rest);
 if (command === 'init') await initTeam();
 if (!(opts.agent in AGENTS)) usageError(`unknown agent "${opts.agent}"`);
@@ -128,6 +131,14 @@ function list() {
   const rows = skills.map(({ name, group }) => ({ name, group }));
   if (opts.json) return out(JSON.stringify(rows, null, 2));
   for (const r of rows) out(`${r.name}\t${r.group}`);
+}
+
+if (command === 'recommend') {
+  const entries = JSON.parse(readFileSync(join(root, 'catalogue', 'catalogue.json'), 'utf8'));
+  const rows = recommend(resolve(opts.names[0] ?? '.'), entries);
+  if (opts.json) out(JSON.stringify(rows, null, 2));
+  else for (const r of rows) out(`${r.id}\t${r.evidence.join('; ')}`);
+  process.exit(0);
 }
 
 if (command === 'list') {

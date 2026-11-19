@@ -1,3 +1,4 @@
+import { detectStack, recommend } from '../../scripts/recommend.mjs';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -61,52 +62,15 @@ export function searchSkills(skills, { query = '', tags = [] } = {}) {
   return scored.map(({ s, score }) => ({ id: s.id, group: s.group, tags: s.tags, description: s.description, score }));
 }
 
-// Signals that a repo gives. Each signal adds query words and tags to rank by.
-const SIGNALS = [
-  { file: 'go.mod', stack: 'go', words: ['test', 'review', 'verification', 'debugging'] },
-  { file: 'package.json', stack: 'node', words: ['test', 'review', 'design', 'ui'] },
-  { file: 'pyproject.toml', stack: 'python', words: ['test', 'review', 'verification', 'debugging'] },
-  { file: 'Cargo.toml', stack: 'rust', words: ['test', 'review', 'verification', 'debugging'] },
-];
-
-function ciFiles(path) {
-  const found = [];
-  const wf = join(path, '.github', 'workflows');
-  if (existsSync(wf)) for (const f of readdirSync(wf)) if (/\.ya?ml$/.test(f)) found.push(`.github/workflows/${f}`);
-  for (const f of ['.gitlab-ci.yml', 'Jenkinsfile', '.circleci/config.yml']) if (existsSync(join(path, f))) found.push(f);
-  return found;
-}
-
+// One scorer for the CLI and MCP: scripts/recommend.mjs. This adds the catalogue fields the tool returns.
 export function recommendForRepo(skills, path) {
-  const evidence = [];
-  const want = new Map();
-  const add = (w, n) => want.set(w, (want.get(w) ?? 0) + n);
-  for (const sig of SIGNALS) {
-    if (!existsSync(join(path, sig.file))) continue;
-    evidence.push(sig.file);
-    for (const w of sig.words) add(w, 2);
-    if (sig.stack === 'node') {
-      const pkg = JSON.parse(readFileSync(join(path, sig.file), 'utf8'));
-      const deps = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies });
-      if (deps.some((d) => /react|vue|svelte|next|tailwind/.test(d))) { add('design', 3); add('ui', 3); }
-    }
-  }
-  const ci = ciFiles(path);
-  if (ci.length) {
-    evidence.push(...ci);
-    add('ci', 3); add('ship', 3); add('verification', 2);
-  }
-  const ranked = skills.map((s) => {
-    let score = 0;
-    for (const [w, n] of want) {
-      if (s.tags.includes(w) || words(s.id).includes(w)) score += n;
-      else if (words(s.description).includes(w)) score += 1;
-    }
-    return { id: s.id, group: s.group, tags: s.tags, description: s.description, score };
-  });
-  // Skills that apply to any stack keep a small base score so the list is never empty.
-  const baseline = new Set(['verification-before-completion', 'systematic-debugging', 'code-review-and-quality']);
-  for (const r of ranked) if (baseline.has(r.id)) r.score += 1;
-  ranked.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
-  return { evidence, recommendations: ranked.filter((r) => r.score > 0) };
+  const evidence = [...new Set(Object.values(detectStack(path).evidence).flat())];
+  const byId = new Map(skills.map((s) => [s.id, s]));
+  const recommendations = recommend(path, skills, { limit: skills.length })
+    .filter((r) => byId.has(r.id))
+    .map((r) => {
+      const s = byId.get(r.id);
+      return { id: r.id, group: s.group, tags: s.tags, description: s.description, score: r.score, evidence: r.evidence };
+    });
+  return { evidence, recommendations };
 }
