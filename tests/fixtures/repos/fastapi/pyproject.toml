@@ -1,0 +1,6 @@
+[project]
+name = "api"
+dependencies = ["fastapi>=0.110", "uvicorn"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -15,6 +15,12 @@ make check
 
 ## First command
 
+Get skill recommendations for a repo. Each line shows the evidence behind it. UI skills only appear when the repo has UI evidence:
+
+```sh
+node bin/kaas-blueprint.mjs recommend path/to/repo
+```
+
 List the skills the installer knows:
 
 ```sh
