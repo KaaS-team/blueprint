@@ -63,6 +63,13 @@ if (prompts.length) {
     const got = rank(docs, p.prompt)[0];
     if (got !== p.expected) misses.push({ ...p, got });
   }
+  // Every skill must be the top pick for at least one of its own positive prompts.
+  for (const name of names) {
+    const own = prompts.filter((p) => p.expected === name);
+    if (own.length && !own.some((p) => rank(docs, p.prompt)[0] === name)) {
+      problems.push(`${name}: the routing eval never selects it, sharpen its description`);
+    }
+  }
   const acc = (prompts.length - misses.length) / prompts.length;
   if (acc < MIN_RANK1) {
     problems.push(`rank-1 accuracy ${(acc * 100).toFixed(1)}% is under ${MIN_RANK1 * 100}%`);

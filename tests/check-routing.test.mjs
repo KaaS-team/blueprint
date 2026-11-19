@@ -94,3 +94,23 @@ test('a positive moved to the wrong skill fails and lists the misses', () => {
   const dir = fixture(files({ [routePath('baking')]: route('baking', { positive: ['fix the leak', 'the faucet drips', 'a pipe is blocked'] }) }));
   assertFails(SCRIPT, dir, /accuracy[\s\S]*miss: "fix the leak" expected baking, got plumbing/);
 });
+
+test('a skill the routing eval never selects fails even when accuracy stays high', () => {
+  const skills = {};
+  const routes = {};
+  const names = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10'];
+  const words = ['apple', 'berry', 'cherry', 'dates', 'elder', 'figs', 'grape', 'hazel', 'iris', 'jam'];
+  names.forEach((n, i) => {
+    // a10 has a description that shares no words with its own prompts.
+    skills[skillPath(n)] = `---\nname: ${n}\ndescription: ${n === 'a10' ? 'zzz' : words[i]}.\n---\n`;
+    const w = words[i];
+    const other = names[(i + 1) % names.length];
+    routes[routePath(n)] = JSON.stringify({
+      skill: n,
+      positive: [`${w} one`, `${w} two`, `${w} three`],
+      negative: [{ prompt: `${words[(i + 1) % 10]} x`, expect: other }, { prompt: `${words[(i + 1) % 10]} y`, expect: other }],
+    });
+  });
+  const dir = fixture({ ...skills, ...routes });
+  assertFails(SCRIPT, dir, /a10: the routing eval never selects it/);
+});
