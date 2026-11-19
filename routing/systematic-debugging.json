@@ -2,9 +2,9 @@
   "skill": "systematic-debugging",
   "positive": [
     "The test suite fails with an unexpected error and I do not know why, debug it",
-    "There is a bug where the page crashes on load, find the root cause",
+    "There is a bug where the page crashes on load with unexpected behavior, find the root cause",
     "Something behaves unexpectedly after the last change, help me investigate the failure",
-    "A flaky test keeps failing, work out why before fixing"
+    "A flaky test failure keeps showing up, find the cause before proposing fixes"
   ],
   "negative": [
     {
