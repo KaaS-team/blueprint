@@ -18,6 +18,7 @@ const AGENTS = {
 
 const USAGE = `Usage:
   kaas-blueprint list [--json] [--from <dir>]
+  kaas-blueprint mcp
   kaas-blueprint add <skill-or-group>... [--agent <name>] [--global] [--dir <path>] [--force] [--from <dir>]
 
 Agents: ${Object.entries(AGENTS).map(([a, d]) => `${a} (${d})`).join(', ')}. Default: claude.
@@ -84,6 +85,12 @@ function catalog(root) {
 }
 
 const [command, ...rest] = process.argv.slice(2);
+if (command === 'mcp') {
+  const { serveStdio } = await import('../src/mcp/server.mjs');
+  await serveStdio(resolve(dirname(fileURLToPath(import.meta.url)), '..'));
+  await new Promise((done) => process.stdin.once('close', done));
+  process.exit(0);
+}
 if (command === '--help' || command === '-h' || command === 'help') {
   process.stdout.write(USAGE);
   process.exit(0);

@@ -128,12 +128,12 @@ test('bad usage exits 2 with the usage text', () => {
   }
 });
 
-test('the only command is kaas-blueprint and the package has no dependency', () => {
+test('the only command is kaas-blueprint and the only dependencies are the MCP server ones', () => {
   const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
   assert.deepEqual(Object.keys(pkg.bin), ['kaas-blueprint']);
   assert.ok(!existsSync(join(ROOT, 'bin/blueprint.mjs')));
   assert.ok(readFileSync(BIN, 'utf8').startsWith('#!/usr/bin/env node'));
   accessSync(BIN, constants.X_OK);
-  assert.ok(!('dependencies' in pkg));
+  assert.deepEqual(Object.keys(pkg.dependencies ?? {}).sort(), ['@modelcontextprotocol/sdk', 'zod']);
   assert.ok(!('devDependencies' in pkg));
 });
