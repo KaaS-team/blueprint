@@ -1,0 +1,12 @@
+{
+  "skill": "doc-drift",
+  "positive": [
+    "Which parts of the README no longer match the code after this change",
+    "Check the docs for commands and flags that were removed or renamed",
+    "Find documentation drift before we cut the release"
+  ],
+  "negative": [
+    { "prompt": "Prepare version 1.2.0 with the changelog and the tag command", "expect": "release" },
+    { "prompt": "Review the diff of the finished change", "expect": "code-review-and-quality" }
+  ]
+}
