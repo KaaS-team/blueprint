@@ -1,0 +1,12 @@
+{
+  "skill": "build-on-design-system",
+  "positive": [
+    "Build the settings page using our existing components and tokens",
+    "Add a new card component that follows the design system of this repo",
+    "Build a new UI component from the existing design system tokens and components"
+  ],
+  "negative": [
+    { "prompt": "Map the tokens and components of this repo into a summary", "expect": "design-system-map" },
+    { "prompt": "Check by eye that the built page looks like the design and list each component", "expect": "visual-check" }
+  ]
+}

@@ -10,7 +10,12 @@
       "quality"
     ],
     "eval": "plugins/blueprint-review/evals/code-review-and-quality--diff/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "domain-modeling",
@@ -24,7 +29,12 @@
       "docs"
     ],
     "eval": "plugins/blueprint-core/evals/domain-modeling--glossary/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "grilling",
@@ -37,7 +47,12 @@
       "review"
     ],
     "eval": "plugins/blueprint-core/evals/grilling--plan/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "codebase-design",
@@ -50,7 +65,12 @@
       "architecture"
     ],
     "eval": "plugins/blueprint-review/evals/codebase-design--seam/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "improve-codebase-architecture",
@@ -63,7 +83,12 @@
       "refactor"
     ],
     "eval": "plugins/blueprint-review/evals/improve-codebase-architecture--explore/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "systematic-debugging",
@@ -76,7 +101,12 @@
       "process"
     ],
     "eval": "plugins/blueprint-core/evals/systematic-debugging--root-cause/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "verification-before-completion",
@@ -89,7 +119,12 @@
       "process"
     ],
     "eval": "plugins/blueprint-core/evals/verification-before-completion--claim-done/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "verifier",
@@ -102,7 +137,12 @@
       "agent"
     ],
     "eval": null,
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "first-run",
@@ -115,7 +155,12 @@
       "audit"
     ],
     "eval": "plugins/blueprint-review/evals/first-run--audit/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 90,
+      "findings": 1,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "plan-critic",
@@ -128,7 +173,12 @@
       "review"
     ],
     "eval": "plugins/blueprint-review/evals/plan-critic--cycle/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "complexity-surgeon",
@@ -141,7 +191,12 @@
       "refactor"
     ],
     "eval": null,
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "gate-triage",
@@ -154,7 +209,12 @@
       "ci"
     ],
     "eval": null,
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "read-design",
@@ -167,7 +227,12 @@
       "ui"
     ],
     "eval": "plugins/blueprint-design/evals/read-design--screenshot/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "design-system-map",
@@ -180,7 +245,12 @@
       "ui"
     ],
     "eval": "plugins/blueprint-design/evals/design-system-map--tokens/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "visual-check",
@@ -194,7 +264,12 @@
       "verify"
     ],
     "eval": "plugins/blueprint-design/evals/visual-check--page/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "team-rollout-pack",
@@ -209,7 +284,12 @@
       "hooks"
     ],
     "eval": null,
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "ship",
@@ -222,7 +302,12 @@
       "pr"
     ],
     "eval": "plugins/blueprint-ship/evals/ship--pr/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "release",
@@ -235,7 +320,12 @@
       "release"
     ],
     "eval": "plugins/blueprint-ship/evals/release--prep/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   },
   {
     "id": "rollout-check",
@@ -248,6 +338,66 @@
       "rollout"
     ],
     "eval": "plugins/blueprint-ship/evals/rollout-check--gaps/prompt.md",
-    "score": null
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
+  },
+  {
+    "id": "visual-diff",
+    "kind": "skill",
+    "source": "blueprint@28f5565f449695d93ca28603fe1fc63019c7e282#plugins/blueprint-design/skills/visual-diff",
+    "licence": "Apache-2.0",
+    "sha256": "258a7f00b069f429dd2aecbcaa2d209260564bd1e1a54efea7e64697048583d3",
+    "tags": [
+      "design",
+      "ui",
+      "verify"
+    ],
+    "eval": "plugins/blueprint-design/evals/visual-diff--page/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
+  },
+  {
+    "id": "doc-drift",
+    "kind": "skill",
+    "source": "blueprint@28f5565f449695d93ca28603fe1fc63019c7e282#plugins/blueprint-review/skills/doc-drift",
+    "licence": "Apache-2.0",
+    "sha256": "ffef5227090c26a6ff1dfbe081c698590b3b60c3515403064676d1bf82034278",
+    "tags": [
+      "docs",
+      "review"
+    ],
+    "eval": "plugins/blueprint-review/evals/doc-drift--readme/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
+  },
+  {
+    "id": "build-on-design-system",
+    "kind": "skill",
+    "source": "blueprint@28f5565f449695d93ca28603fe1fc63019c7e282#plugins/blueprint-design/skills/build-on-design-system",
+    "licence": "Apache-2.0",
+    "sha256": "a5b382a5bfaca0d19cc2c20bb8352eb5933a89fcc1b73279f58f0b883e0b6807",
+    "tags": [
+      "design",
+      "ui"
+    ],
+    "eval": "plugins/blueprint-design/evals/build-on-design-system--card/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-26"
+    }
   }
 ]
