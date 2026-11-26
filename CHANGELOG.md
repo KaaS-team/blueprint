@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 - 2026-11-26
+
+- New `ship` plugin skills: `ship` opens one pull request with gate proof, `release` prepares a version and its tag command, and `rollout-check` finds gaps in the team setup. Each has an eval and routing samples.
+- README now covers `kaas-blueprint mcp`, `init --team` and the Go factory.
+- Every catalogue entry is pinned to a full commit sha. Release moves own entries to the `v1.1.0` tag.
+
 ## 1.0.0 - 2026-11-19
 
 First stable release.

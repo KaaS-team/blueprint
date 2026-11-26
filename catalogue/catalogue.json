@@ -210,5 +210,44 @@
     ],
     "eval": null,
     "score": null
+  },
+  {
+    "id": "ship",
+    "kind": "skill",
+    "source": "blueprint@28f5565f449695d93ca28603fe1fc63019c7e282#plugins/blueprint-ship/skills/ship",
+    "licence": "Apache-2.0",
+    "sha256": "ef809147869e100623f3f614882e97405279d09252b2d587170e93eab4708200",
+    "tags": [
+      "ship",
+      "pr"
+    ],
+    "eval": "plugins/blueprint-ship/evals/ship--pr/prompt.md",
+    "score": null
+  },
+  {
+    "id": "release",
+    "kind": "skill",
+    "source": "blueprint@28f5565f449695d93ca28603fe1fc63019c7e282#plugins/blueprint-ship/skills/release",
+    "licence": "Apache-2.0",
+    "sha256": "18443b6d4878dbb9ce7a6e54617b8cb4b860e355e89ba5d71803bfb08135c5b1",
+    "tags": [
+      "ship",
+      "release"
+    ],
+    "eval": "plugins/blueprint-ship/evals/release--prep/prompt.md",
+    "score": null
+  },
+  {
+    "id": "rollout-check",
+    "kind": "skill",
+    "source": "blueprint@28f5565f449695d93ca28603fe1fc63019c7e282#plugins/blueprint-ship/skills/rollout-check",
+    "licence": "Apache-2.0",
+    "sha256": "f8938dc70db0bd5d49681955effbc946b100d81e78291e3e992e0a0825763fb2",
+    "tags": [
+      "ship",
+      "rollout"
+    ],
+    "eval": "plugins/blueprint-ship/evals/rollout-check--gaps/prompt.md",
+    "score": null
   }
 ]
