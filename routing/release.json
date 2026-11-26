@@ -1,0 +1,12 @@
+{
+  "skill": "release",
+  "positive": [
+    "Prepare the release of version 1.2.0 with the changelog and the tag command",
+    "Check the package version and the changelog agree before we tag",
+    "We want to cut a release, check the pins and print the tag command"
+  ],
+  "negative": [
+    { "prompt": "My change is finished, open a pull request with the gate output in it", "expect": "ship" },
+    { "prompt": "Check what the team rollout is missing in this repo", "expect": "rollout-check" }
+  ]
+}

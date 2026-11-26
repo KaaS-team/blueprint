@@ -42,6 +42,9 @@ codebase-design	review
 first-run	review
 improve-codebase-architecture	review
 plan-critic	review
+release	ship
+rollout-check	ship
+ship	ship
 ```
 
 Install one into the current folder's `.claude/skills`:
@@ -52,13 +55,21 @@ node bin/kaas-blueprint.mjs add plan-critic
 
 It prints `added plan-critic to <folder>/.claude/skills/plan-critic`.
 
+## MCP server
+
+`kaas-blueprint mcp` serves the catalogue over MCP on stdio, so any coding agent can use it without a copy of this repo. It offers four tools: `search_skills`, `get_skill`, `recommend_for_repo` and `install_skill`. Add it to an agent as a stdio server with the command `npx kaas-blueprint mcp`.
+
+## Team setup
+
+`kaas-blueprint init --team` writes the shared setup into a repo: an `AGENTS.md`, one pointer file per agent, settings, hooks and rules. Run it in the repo root. `--agents claude,cursor,codex,gemini` picks the agents, `--dir <repo>` picks another folder, and `--dry-run` lists what would change without writing. A second run prints `nothing to change`. The `rollout-check` skill uses the dry run to find gaps.
+
 ## Installer options
 
 - `--agent <name>` picks the agent: `claude` (`.claude/skills`, the default), `codex` (`.codex/skills`), `cursor` (`.cursor/skills`), `pi` (`.pi/skills`) or `agents` (`.agents/skills`).
 - Skills go into the current folder by default. `--global` uses your home folder instead, and `--dir <path>` uses exactly that folder. The two cannot be combined.
 - `--force` replaces a skill folder that already exists. Without it an existing folder is refused and nothing is written.
 - `list --json` prints the list as JSON.
-- A group name installs every skill in that group. Groups are the plugin folder names without the `blueprint-` prefix: `core`, `design`, `review` and `ship`. `ship` has no skills yet.
+- A group name installs every skill in that group. Groups are the plugin folder names without the `blueprint-` prefix: `core`, `design`, `review` and `ship`.
 - An unknown name exits with code 2 and suggests the nearest skill or group.
 
 `node bin/kaas-blueprint.mjs --help` prints usage. `npm pack` makes a tarball, and `npx ./kaas-blueprint-*.tgz --help` runs the installer from it.
@@ -72,7 +83,9 @@ It prints `added plan-critic to <folder>/.claude/skills/plan-critic`.
 - `scripts/` holds the checks and tools. `tests/` holds their tests.
 - `.factory/`, `.claude/` and `.github/` configure the factory and CI for this repo itself.
 
-The factory side is the old Bun and TypeScript factory that reads this catalogue. This repo has not been checked against the Go rewrite of the factory.
+## Go factory
+
+The factory reads `catalogue/catalogue.json`, picks packs by tag and fetches each one by its pinned `source`, checking the bytes against `sha256`. That contract is the same for the old Bun and TypeScript factory and for the Go factory. The catalogue format did not change in 1.1.0. This repo's gate does not run the Go factory, so a run against it is checked on the factory side.
 
 ## How to add a skill
 
@@ -91,7 +104,7 @@ It has no help flag, so any run changes files. Run `node scripts/upgrade-pins.mj
 
 `catalogue/catalogue.json` lists every pack: `id`, `kind` (skill, agent, workflow or check), `source`, `licence`, `sha256`, `tags`, `eval` and `score`. `score` is null until a scored eval result exists.
 
-- `source` is `repo@sha#path`. For an upstream pack the sha is the pin in `upstreams.json`. For a pack that lives in this repo it is `blueprint@<ref>#path`, where the ref is a release tag, or a full commit sha while no tag exists (none does yet, so the entries use a commit sha). `@HEAD` fails the check.
+- `source` is `repo@sha#path`. For an upstream pack the sha is the pin in `upstreams.json`. For a pack that lives in this repo it is `blueprint@<ref>#path`, where the ref is a release tag, or a full commit sha while no tag exists (no tag exists yet, so the entries use a commit sha, and the release moves them to `v1.1.0` once the tag exists). `@HEAD` fails the check.
 - `sha256` is the hash of the pack's `SKILL.md`, or of the agent file. `eval` is the eval prompt that scores the pack, or null.
 - The factory reads the file, picks packs by tag, and fetches each one by its `source`, checking the bytes against `sha256`.
 - `scripts/check-catalogue.mjs` fails when the catalogue and `upstreams.json` disagree in either direction, when a skill or agent here is missing, or when a licence is not MIT or Apache-2.0.

@@ -1,0 +1,12 @@
+{
+  "skill": "rollout-check",
+  "positive": [
+    "We ran the team rollout, check what the repo is missing",
+    "Is the shared agent setup complete in this repo, report each gap",
+    "Check the rollout hooks and rules are in place for the team"
+  ],
+  "negative": [
+    { "prompt": "Prepare the release of version 1.2.0 with the changelog and the tag command", "expect": "release" },
+    { "prompt": "Check this plan of tasks with sizes and dependencies before we build it", "expect": "plan-critic" }
+  ]
+}

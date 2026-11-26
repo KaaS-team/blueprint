@@ -1,0 +1,12 @@
+{
+  "skill": "visual-diff",
+  "positive": [
+    "Run a pixel diff of my built page against the reference screenshot",
+    "Run a pixel diff and report the share of changed pixels for the built page",
+    "Fail the check if more than half a percent of pixels changed from the reference"
+  ],
+  "negative": [
+    { "prompt": "Check by eye that the built page looks like the design and list each component", "expect": "visual-check" },
+    { "prompt": "Map the design tokens and components of this repo", "expect": "design-system-map" }
+  ]
+}

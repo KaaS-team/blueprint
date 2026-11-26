@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Every catalogue entry has a security scan score. `make check` fails when it is missing, stale or under 70. See `docs/trust.md`.
+- New skills: `visual-diff` (pixel diff against a reference), `doc-drift` and `build-on-design-system`.
+- Opt-in install telemetry (off by default, local file only), an admin allowlist generator for managed settings, and an evidence ledger with merge and prune, all under `src/trust/`.
+
+## 1.1.0 - 2026-11-26
+
+- New `ship` plugin skills: `ship` opens one pull request with gate proof, `release` prepares a version and its tag command, and `rollout-check` finds gaps in the team setup. Each has an eval and routing samples.
+- README now covers `kaas-blueprint mcp`, `init --team` and the Go factory.
+- Every catalogue entry is pinned to a full commit sha. Release moves own entries to the `v1.1.0` tag.
+
 ## 1.0.0 - 2026-11-19
 
 First stable release.

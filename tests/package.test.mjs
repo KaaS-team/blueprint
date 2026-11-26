@@ -56,11 +56,11 @@ test('the packed tarball runs init --team in a fresh repo and creates the team f
   assert.match(again.stdout, /nothing to change/);
 });
 
-test('package.json is at 1.0.0, ships the changelog, and the changelog has a 1.0.0 section', () => {
+test('package.json is at 1.1.0, ships the changelog, and the changelog has a 1.1.0 section', () => {
   const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
-  assert.equal(pkg.version, '1.0.0');
+  assert.equal(pkg.version, '1.1.0');
   assert.ok(pkg.files.includes('CHANGELOG.md'));
-  assert.match(readFileSync(join(ROOT, 'CHANGELOG.md'), 'utf8'), /^## 1\.0\.0 /m);
+  assert.match(readFileSync(join(ROOT, 'CHANGELOG.md'), 'utf8'), /^## 1\.1\.0 /m);
 });
 
 test('the routing eval has at least 20 cases and check-routing reports at least 90%', () => {

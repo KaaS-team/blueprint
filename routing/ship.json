@@ -1,0 +1,12 @@
+{
+  "skill": "ship",
+  "positive": [
+    "My change is finished, open a pull request with the gate output in it",
+    "Ship this branch as one PR and do not merge it",
+    "Rebase on main, run the gate and open the pull request for my work"
+  ],
+  "negative": [
+    { "prompt": "Review the diff of the finished change", "expect": "code-review-and-quality" },
+    { "prompt": "Prepare version 1.2.0 with the changelog and the tag command", "expect": "release" }
+  ]
+}
