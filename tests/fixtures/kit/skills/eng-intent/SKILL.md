@@ -8,4 +8,6 @@ description: Use for capturing the intent of a change before coding.
 Write the goal in one sentence.
 This line names kaas internals and must go.
 See /Users/someone/notes for the old draft.
+Run `scripts/kaas/check.py` as acme-app does.
+Globex keeps the old list.
 Keep it short.

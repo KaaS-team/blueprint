@@ -6,8 +6,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { ROOT } from './helpers.mjs';
 
-const run = (kit, out) =>
-  spawnSync(process.execPath, [join(ROOT, 'scripts', 'import-kit.mjs'), join(ROOT, 'tests', 'fixtures', kit), '--out', out], { encoding: 'utf8' });
+const run = (kit, out, names = 'kit-names.json') =>
+  spawnSync(process.execPath, [join(ROOT, 'scripts', 'import-kit.mjs'), join(ROOT, 'tests', 'fixtures', kit), '--out', out, '--names', join(ROOT, 'tests', 'fixtures', names)], { encoding: 'utf8' });
 const tmp = () => mkdtempSync(join(tmpdir(), 'blueprint-import-'));
 const read = (out, rel) => readFileSync(join(out, rel), 'utf8');
 
@@ -22,6 +22,13 @@ test('renames, strips and merges the fixture kit', () => {
   assert.doesNotMatch(intent, /kaas/i);
   assert.doesNotMatch(intent, /\/Users\//);
 
+  assert.match(intent, /^Run `scripts\/check\.py` as one app does\.$/m);
+
+  const audit = read(out, 'plugins/blueprint-review/skills/repo-audit/SKILL.md');
+  assert.match(audit, /^description: "Score a repo against the engineering standard\. Use when /m);
+  assert.doesNotMatch(audit, /Known baseline|initech/);
+  assert.match(audit, /## Adding a check/);
+
   const ship = read(out, 'plugins/blueprint-ship/skills/ship/SKILL.md');
   assert.match(ship, /## Verify/);
   assert.match(ship, /Start with intent,/);
@@ -35,12 +42,21 @@ test('prints each dropped line to stderr', () => {
   const r = run('kit', tmp());
   assert.match(r.stderr, /dropped plugins\/blueprint-core\/skills\/intent\/SKILL\.md:\d+: This line names kaas internals/);
   assert.match(r.stderr, /dropped plugins\/blueprint-core\/skills\/intent\/SKILL\.md:\d+: See \/Users\//);
+  assert.match(r.stderr, /dropped plugins\/blueprint-core\/skills\/intent\/SKILL\.md:\d+: Globex keeps the old list\./);
   assert.match(r.stderr, /missing agents\/gate-triage\.md/);
 });
 
 test('refuses a leak and writes nothing', () => {
   const out = tmp();
   const r = run('kit-leak', out);
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /still names the company/);
+  assert.deepEqual(readdirSync(out), []);
+});
+
+test('refuses a client name from --names left in the frontmatter and writes nothing', () => {
+  const out = tmp();
+  const r = run('kit', out, 'kit-names-leak.json');
   assert.equal(r.status, 1);
   assert.match(r.stderr, /still names the company/);
   assert.deepEqual(readdirSync(out), []);

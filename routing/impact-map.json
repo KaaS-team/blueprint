@@ -1,0 +1,18 @@
+{
+  "skill": "impact-map",
+  "positive": [
+    "The gate is too slow, only test what changed",
+    "Write the impact map in .agents/repo.json so check-affected runs only the checks a change reaches",
+    "check-affected.py escalated to full, fix the blast radius map"
+  ],
+  "negative": [
+    {
+      "prompt": "My change is finished on this branch. Ship it as a pull request",
+      "expect": "ship"
+    },
+    {
+      "prompt": "Before I claim this is fixed, run the checks and confirm the output",
+      "expect": "verification-before-completion"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "skill": "debug-e2e",
+  "positive": [
+    "The e2e suite is failing, rule out the environment first",
+    "My Playwright e2e test is flaky, check the dev server and docker build",
+    "Here is a pasted Playwright failure from the e2e run, diagnose it"
+  ],
+  "negative": [
+    {
+      "prompt": "There is a bug where the page crashes on load with unexpected behavior, find the root cause",
+      "expect": "systematic-debugging"
+    },
+    {
+      "prompt": "Before I claim this is fixed, run the checks and confirm the output",
+      "expect": "verification-before-completion"
+    }
+  ]
+}

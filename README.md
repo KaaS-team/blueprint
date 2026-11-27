@@ -30,18 +30,27 @@ node bin/kaas-blueprint.mjs list
 Output:
 
 ```
+debug-e2e	core
 domain-modeling	core
 grilling	core
+intent	core
 systematic-debugging	core
 verification-before-completion	core
+build-on-design-system	design
 design-system-map	design
 read-design	design
 visual-check	design
+visual-diff	design
+add-dependency	review
 code-review-and-quality	review
 codebase-design	review
+doc-drift	review
 first-run	review
 improve-codebase-architecture	review
 plan-critic	review
+repo-audit	review
+structural-test	review
+impact-map	ship
 release	ship
 rollout-check	ship
 ship	ship
