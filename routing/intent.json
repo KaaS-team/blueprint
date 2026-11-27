@@ -1,0 +1,18 @@
+{
+  "skill": "intent",
+  "positive": [
+    "Capture the intent of this change in an intent.md before any code is written",
+    "Write down the problem and constraints for this change before we start coding",
+    "Record this deferred finding so it outlives the session as a committed intent"
+  ],
+  "negative": [
+    {
+      "prompt": "Check this plan of tasks with sizes and dependencies before we build it",
+      "expect": "plan-critic"
+    },
+    {
+      "prompt": "Grill me on this plan until it holds up",
+      "expect": "grilling"
+    }
+  ]
+}

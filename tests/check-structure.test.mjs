@@ -41,6 +41,10 @@ test('fails when a README mentions LWP or learnwithparam in any case', () => {
   assertFails(SCRIPT, fixture({ 'README.md': 'Via lwp.\n' }), /README\.md/);
 });
 
+test('fails when a README names the company inside a variable', () => {
+  assertFails(SCRIPT, fixture({ 'README.md': 'Loop over $KAAS_WORKSPACE.\n' }), /README\.md/);
+});
+
 test('passes the same KaaS text in NOTICE', () => {
   assertPasses(SCRIPT, fixture({ NOTICE: 'Built by KaaS.\n', 'README.md': 'Hello.\n' }));
 });

@@ -4,7 +4,10 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const BANNED = /\b(?:kaas|lwp|learnwithparam)\b/i;
+// The company and its founder's brand. A letter or digit must not touch either side, so KAAS_WORKSPACE
+// and lwp-website count while words that merely contain them do not. Client names are never spelled in
+// this public repo: the importer reads them from a private --names file.
+export const BANNED = /(?<![a-z0-9])(?:kaas|lwp|learnwithparam)(?![a-z0-9])/i;
 export const DOMAIN = /\bkaas\.team\b/gi;
 // The installer's command name is allowed, like the domain.
 export const COMMAND = /\bkaas-blueprint\b|\bgithub:KaaS-team\/blueprint\b/gi;

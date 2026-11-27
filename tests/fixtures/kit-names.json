@@ -1,0 +1,13 @@
+{
+  "rewrite": [
+    [
+      "acme-app",
+      "one app"
+    ]
+  ],
+  "ban": [
+    "acme-app",
+    "globex",
+    "initech"
+  ]
+}
