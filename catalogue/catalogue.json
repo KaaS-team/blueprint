@@ -399,5 +399,113 @@
       "findings": 0,
       "scanned": "2026-11-26"
     }
+  },
+  {
+    "id": "intent",
+    "kind": "skill",
+    "source": "blueprint@d407ee82e025e3142d43d404bffb819cd52b23eb#plugins/blueprint-core/skills/intent",
+    "licence": "Apache-2.0",
+    "sha256": "4e26b41b0fc78bb402e272f431c237be77394aafd5026577673748235874161d",
+    "tags": [
+      "planning",
+      "docs"
+    ],
+    "eval": "plugins/blueprint-core/evals/intent--capture/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-27"
+    }
+  },
+  {
+    "id": "debug-e2e",
+    "kind": "skill",
+    "source": "blueprint@d407ee82e025e3142d43d404bffb819cd52b23eb#plugins/blueprint-core/skills/debug-e2e",
+    "licence": "Apache-2.0",
+    "sha256": "be258faae7506941ab7baa5fe121c091421a06813e9739bafa3aa0978cd1eba7",
+    "tags": [
+      "debugging",
+      "testing"
+    ],
+    "eval": "plugins/blueprint-core/evals/debug-e2e--flaky/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-27"
+    }
+  },
+  {
+    "id": "add-dependency",
+    "kind": "skill",
+    "source": "blueprint@d407ee82e025e3142d43d404bffb819cd52b23eb#plugins/blueprint-review/skills/add-dependency",
+    "licence": "Apache-2.0",
+    "sha256": "b58c3fe7122821e541dc05ee74da34ab73ac44f2366231dea9547ec0abf94658",
+    "tags": [
+      "dependencies",
+      "review"
+    ],
+    "eval": "plugins/blueprint-review/evals/add-dependency--vet/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-27"
+    }
+  },
+  {
+    "id": "structural-test",
+    "kind": "skill",
+    "source": "blueprint@d407ee82e025e3142d43d404bffb819cd52b23eb#plugins/blueprint-review/skills/structural-test",
+    "licence": "Apache-2.0",
+    "sha256": "3a2737097322430b8e314fd162e17769be50fceea189125230875535a534f2fb",
+    "tags": [
+      "testing",
+      "quality"
+    ],
+    "eval": "plugins/blueprint-review/evals/structural-test--routes/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-27"
+    }
+  },
+  {
+    "id": "repo-audit",
+    "kind": "skill",
+    "source": "blueprint@d407ee82e025e3142d43d404bffb819cd52b23eb#plugins/blueprint-review/skills/repo-audit",
+    "licence": "Apache-2.0",
+    "sha256": "7fc6928d1c1340dbd603a66566644a63878029aedc75d4f3909561740da8cbc0",
+    "tags": [
+      "audit",
+      "review"
+    ],
+    "eval": "plugins/blueprint-review/evals/repo-audit--score/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-27"
+    }
+  },
+  {
+    "id": "impact-map",
+    "kind": "skill",
+    "source": "blueprint@d407ee82e025e3142d43d404bffb819cd52b23eb#plugins/blueprint-ship/skills/impact-map",
+    "licence": "Apache-2.0",
+    "sha256": "1983e36ab137779c4edb256fbd4ea221f4ebbc43ec9595ff4c43289d3c8b708d",
+    "tags": [
+      "ship",
+      "testing"
+    ],
+    "eval": "plugins/blueprint-ship/evals/impact-map--map/prompt.md",
+    "score": null,
+    "security": {
+      "score": 100,
+      "findings": 0,
+      "scanned": "2026-11-27"
+    }
   }
 ]
